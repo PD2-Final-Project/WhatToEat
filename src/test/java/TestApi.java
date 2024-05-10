@@ -1,16 +1,15 @@
-package com.whattoeat;
-
-import java.io.FileReader;
-import java.io.IOException;
 import com.google.gson.JsonObject;
 import com.google.maps.errors.ApiException;
+import com.whattoeat.model.api.DataParser;
 import org.json.JSONObject;
 import org.json.JSONTokener;
-import com.whattoeat.model.api.DataParser;
 
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
-public class Main {
-    public static void main(String[] args) throws IOException, InterruptedException, ApiException {
+public class TestApi {
+    public static void main(String[] args) {
         // Get Google Map API key
         String apiKey = "";
         try {
@@ -27,8 +26,13 @@ public class Main {
         DataParser dataParser = new DataParser(apiKey, "成功大學");
         dataParser.setKeyword(keyWord);
         dataParser.setRadius(radius);
-        JsonObject searchedStores = dataParser.searchNearBy();
-
+        JsonObject searchedStores = dataParser.searchNearBy(3);
+        System.out.println("Get " + dataParser.getStoresDataCount() + " data");
+        try (FileWriter writer = new FileWriter("src/test/java/test.json")) {
+            writer.write(searchedStores.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         dataParser.close();
     }
 }
