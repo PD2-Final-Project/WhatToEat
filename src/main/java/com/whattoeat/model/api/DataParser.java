@@ -3,8 +3,8 @@ package com.whattoeat.model.api;
 import com.google.gson.JsonObject;
 import com.google.maps.*;
 import com.google.maps.errors.ApiException;
+import com.google.maps.internal.PriceLevelAdapter;
 import com.google.maps.model.*;
-
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -205,6 +205,13 @@ public class DataParser {
             // parse distance
             long meter = getDistance(details);
 
+            // price level
+            int priceLevel = -1;
+            if (!(details.priceLevel == null)) {
+                System.out.println(details.priceLevel.name());
+                priceLevel = Integer.parseInt(details.priceLevel.toString());
+            }
+
             // add all properties to json
             String phoneNumber = details.formattedPhoneNumber == null ? "" : details.formattedPhoneNumber;
             JsonObject storeDetails = new JsonObject();
@@ -213,6 +220,7 @@ public class DataParser {
             storeDetails.addProperty("distance", meter);
             storeDetails.addProperty("phoneNumber", phoneNumber);
             storeDetails.addProperty("url", details.url.toString());
+            storeDetails.addProperty("priceLevel", priceLevel);
             storeDetails.add("openTimes", openPeriod);
             storeDetails.add("photos", storePhotos);
             storeDetails.add("reviews", storeReviews);
@@ -264,5 +272,4 @@ public class DataParser {
             index++;
         }
     }
-
 }
