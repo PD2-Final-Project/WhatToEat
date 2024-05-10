@@ -43,3 +43,6 @@ bin/
 
 ### Env Files ###
 src/env.json
+
+### Test Files ###
+src/test/java/test.json
