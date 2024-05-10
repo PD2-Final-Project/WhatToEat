@@ -33,6 +33,7 @@ public class TestApi {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        dataParser.setSelfLocation("光復二舍");
         dataParser.close();
     }
 }
