@@ -1,10 +1,12 @@
 package com.whattoeat.model.api;
 
-import com.google.gson.JsonObject;
 import com.google.maps.*;
 import com.google.maps.errors.ApiException;
-import com.google.maps.internal.PriceLevelAdapter;
 import com.google.maps.model.*;
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -14,11 +16,13 @@ public class DataParser {
     private GeocodingResult selfLocationDetails = null;
     private PriceLevel minPreferPrice = null;
     private PriceLevel maxPreferPrice = null;
+    private PlaceType placeType = PlaceType.RESTAURANT;
     private String keyword = "";
     private String searchToken = null;
     private int radius = 1000;
     private int storesDataCount = 0;
     private boolean finishSearch = false;
+    private JSONArray searchResult = null;
 
 
     public DataParser(String apiKey, String location) {
@@ -29,36 +33,61 @@ public class DataParser {
         setSelfLocation(location);
     }
 
+    private void reset() {
+        storesDataCount = 0;
+        finishSearch = false;
+    }
+
     public void setMinPreferPrice(PriceLevel minPreferPrice) {
         this.minPreferPrice = minPreferPrice;
+        reset();
     }
 
     public void setMaxPreferPrice(PriceLevel maxPreferPrice) {
         this.maxPreferPrice = maxPreferPrice;
+        reset();
+    }
+
+    public void setPlaceType(@NotNull Places places) {
+        this.placeType = PlaceType.valueOf(places.name());
     }
 
     public void setRadius(int radius) {
         this.radius = radius;
+        reset();
     }
 
     public void setKeyword(String keyword) {
         this.keyword = keyword;
+        reset();
     }
+
+    public PlaceType getPlaceType() {
+        return placeType;
+    }
+
     public int getStoresDataCount() { return this.storesDataCount; }
 
     public void setSelfLocation(String location) {
+        GeocodingResult[] geocodingResults = parseGeocode(location);
+        for (GeocodingResult geocodingResult : geocodingResults) {
+            selfLocationDetails = geocodingResult;
+            break;
+        }
+        reset();
+    }
+
+    public GeocodingResult[] parseGeocode(String location) {
         GeocodingApiRequest geocodingApiRequest = GeocodingApi.geocode(context, location);
+        GeocodingResult[] geocodingResults = null;
         try {
-            GeocodingResult[] geocodingResults = geocodingApiRequest.await();
-            for (GeocodingResult geocodingResult : geocodingResults) {
-                selfLocationDetails = geocodingResult;
-                break;
-            }
+            geocodingResults = geocodingApiRequest.await();
         } catch (ApiException | IOException | InterruptedException e) {
             e.printStackTrace();
         } finally {
 
         }
+        return geocodingResults;
     }
 
     public void close() {
@@ -69,15 +98,32 @@ public class DataParser {
         }
     }
 
-    public JsonObject searchNearBy() {
-        return searchNearBy(new JsonObject());
+    public void searchNear() {
+        if (searchResult == null) {
+            searchResult = searchNearBy();
+        }
+        searchResult = searchNearBy(searchResult);
     }
 
-    public JsonObject searchNearBy(int searchTimes) {
+    public void searchNear(int searchTimes) {
+        for (int i = 0; i < searchTimes; i++) {
+            searchNear();
+        }
+    }
+
+    public JSONArray getSearchResult() {
+        return searchResult;
+    }
+
+    public JSONArray searchNearBy() {
+        return searchNearBy(new JSONArray());
+    }
+
+    public JSONArray searchNearBy(int searchTimes) {
         if (searchTimes <= 1) {
             return searchNearBy();
         } else {
-            JsonObject searchedStores = new JsonObject();
+            JSONArray searchedStores = new JSONArray();
             for (int i = 0; i < searchTimes; i++) {
                 searchedStores = searchNearBy(searchedStores);
                 if (finishSearch) {
@@ -88,7 +134,7 @@ public class DataParser {
         }
     }
 
-    public JsonObject searchNearBy(JsonObject searchedStores) {
+    public JSONArray searchNearBy(JSONArray searchedStores) {
         if (selfLocationDetails == null) {
             System.err.println("location is null, please set the location");
             return null;
@@ -101,7 +147,7 @@ public class DataParser {
         if (searchToken == null) {
             nearbySearchRequest.language("zh-TW");
             nearbySearchRequest.location(location);
-            nearbySearchRequest.type(PlaceType.RESTAURANT);
+            nearbySearchRequest.type(placeType);
             nearbySearchRequest.keyword(keyword);
             nearbySearchRequest.radius(radius);
             nearbySearchRequest.openNow(true);
@@ -146,6 +192,7 @@ public class DataParser {
         }
         return details;
     }
+
     public DistanceMatrix countDistance(String[] origin, String[] destination) {
         DistanceMatrixApiRequest request = DistanceMatrixApi.getDistanceMatrix(context, origin, destination);
         DistanceMatrix matrix = null;
@@ -158,48 +205,48 @@ public class DataParser {
         }
         return matrix;
     }
-    private void parseResults(PlacesSearchResult[] results, JsonObject searchedStores) {
-        JsonObject storeJson;
-        String addressKey = selfLocationDetails.formattedAddress;
-        String keywordKey = String.format("keyword:%s", keyword);
-        String radiusKey = String.format("raduis:%d", radius);
-        if (searchedStores.has(addressKey)) {
-            JsonObject keywordSearch = searchedStores.getAsJsonObject(addressKey);
-            if (keywordSearch.has(keywordKey)) {
-                JsonObject radiusSearch = keywordSearch.getAsJsonObject(keywordKey);
-                if (radiusSearch.has(radiusKey)) {
-                    storeJson = radiusSearch.getAsJsonObject(radiusKey);
-                } else {
-                    storeJson = new JsonObject();
-                    radiusSearch.add(radiusKey, storeJson);
-                }
-            } else {
-                JsonObject radiusSearch = new JsonObject();
-                storeJson = new JsonObject();
-                keywordSearch.add(keywordKey, radiusSearch);
-                radiusSearch.add(radiusKey, storeJson);
+
+    private void parseResults(PlacesSearchResult[] results, @NotNull JSONArray searchedStores) {
+        JSONObject storeJson = null;
+        JSONArray storeContent = null;
+        String addressValue = selfLocationDetails.formattedAddress;
+        String keywordValue = String.valueOf(keyword);
+        String radiusValue = String.valueOf(radius);
+
+        boolean findJsonObject = false;
+        for (Object object: searchedStores) {
+            JSONObject jsonObject = (JSONObject) object;
+            String location = jsonObject.getString("location");
+            String keyword = jsonObject.getString("keyword");
+            String radius = jsonObject.getString("radius");
+            if (location.equals(addressValue) && keyword.equals(keywordValue) && radius.equals(radiusValue)) {
+                storeJson = jsonObject;
+                storeContent = jsonObject.getJSONArray("storeContent");
+                findJsonObject = true;
+                break;
             }
-        } else {
-            storeJson = new JsonObject();
-            JsonObject radiusSearch = new JsonObject();
-            radiusSearch.add(String.format("raduis:%d", radius), storeJson);
-            JsonObject keywordSearch = new JsonObject();
-            keywordSearch.add(String.format("keyword:%s", keyword), radiusSearch);
-            searchedStores.add(selfLocationDetails.formattedAddress, keywordSearch);
+        }
+        if (!findJsonObject) {
+            storeJson = new JSONObject();
+            storeJson.put("location", addressValue);
+            storeJson.put("keyword", keywordValue);
+            storeJson.put("radius", radiusValue);
+            storeContent = new JSONArray();
+            storeJson.put("storeContent", storeContent);
         }
         for (PlacesSearchResult result : results) {
             PlaceDetails details = getPlaceDetails(result.placeId);
 
             // parse reviews
-            JsonObject storeReviews = new JsonObject();
+            JSONArray storeReviews = new JSONArray();
             parseStoreReviews(details, storeReviews);
 
             // parse photos
-            JsonObject storePhotos = new JsonObject();
+            JSONArray storePhotos = new JSONArray();
             parseStorePhotos(details, storePhotos);
 
             // parse open hours
-            JsonObject openPeriod = new JsonObject();
+            JSONObject openPeriod = new JSONObject();
             parseOpenPeriod(details, openPeriod);
 
             // parse distance
@@ -211,64 +258,72 @@ public class DataParser {
                 priceLevel = Integer.parseInt(details.priceLevel.toString());
             }
 
-            // add all properties to json
+            // put all properties to json
             String phoneNumber = details.formattedPhoneNumber == null ? "" : details.formattedPhoneNumber;
-            JsonObject storeDetails = new JsonObject();
-            storeDetails.addProperty("rating", result.rating);
-            storeDetails.addProperty("address", details.formattedAddress);
-            storeDetails.addProperty("distance", meter);
-            storeDetails.addProperty("phoneNumber", phoneNumber);
-            storeDetails.addProperty("url", details.url.toString());
-            storeDetails.addProperty("priceLevel", priceLevel);
-            storeDetails.add("openTimes", openPeriod);
-            storeDetails.add("photos", storePhotos);
-            storeDetails.add("reviews", storeReviews);
-            storeJson.add(result.name, storeDetails);
+            JSONObject storeDetails = new JSONObject();
+            storeDetails.put("name", result.name);
+            JSONObject advanceDetails = new JSONObject();
+            advanceDetails.put("rating", result.rating);
+            advanceDetails.put("address", details.formattedAddress);
+            advanceDetails.put("distance", meter);
+            advanceDetails.put("phoneNumber", phoneNumber);
+            advanceDetails.put("url", details.url.toString());
+            advanceDetails.put("priceLevel", priceLevel);
+            advanceDetails.put("openTimes", openPeriod);
+            advanceDetails.put("photos", storePhotos);
+            advanceDetails.put("reviews", storeReviews);
+            storeDetails.put("details", advanceDetails);
+            storeContent.put(storeDetails);
             storesDataCount++;
+        }
+        if (!findJsonObject) {
+            searchedStores.put(storeJson);
         }
     }
 
-    private long getDistance(PlaceDetails details) {
+    private long getDistance(@NotNull PlaceDetails details) {
         String[] origin = {selfLocationDetails.formattedAddress};
         String[] destination = {details.formattedAddress};
         DistanceMatrix matrix = countDistance(origin, destination);
         return matrix.rows[0].elements[0].distance.inMeters;
     }
 
-    private void parseOpenPeriod(PlaceDetails details, JsonObject openPeriod) {
-        for (OpeningHours.Period period : details.openingHours.periods) {
-            String openHoursTime;
-            String day;
-            if (!(period.close == null)) {
-                openHoursTime = String.format("%s-%s", period.open.time.toString(), period.close.time.toString());
-                day = period.open.day.getName();
-            } else {
-                openHoursTime = "24 hours";
-                day = "All";
+    private void parseOpenPeriod(@NotNull PlaceDetails details, JSONObject openPeriod) {
+        if (!(details.openingHours == null)) {
+            for (OpeningHours.Period period : details.openingHours.periods) {
+                String openHoursTime;
+                String day;
+                if (!(period.close == null)) {
+                    openHoursTime = String.format("%s-%s", period.open.time.toString(), period.close.time.toString());
+                    day = period.open.day.getName();
+                } else {
+                    openHoursTime = "24 hours";
+                    day = "All";
+                }
+                openPeriod.put(day, openHoursTime);
             }
-            openPeriod.addProperty(day, openHoursTime);
         }
     }
 
-    private void parseStorePhotos(PlaceDetails details, JsonObject storePhotos) {
+    private void parseStorePhotos(@NotNull PlaceDetails details, JSONArray storePhotos) {
         Photo[] photos = details.photos;
-        int index = 0;
-        for (Photo photo : photos) {
-            storePhotos.addProperty(String.valueOf(index), photo.photoReference);
-            index++;
+        if (!(photos == null)) {
+            for (Photo photo : photos) {
+                storePhotos.put(photo.photoReference);
+            }
         }
     }
 
-    private void parseStoreReviews(PlaceDetails details, JsonObject storeReviews) {
+    private void parseStoreReviews(@NotNull PlaceDetails details, JSONArray storeReviews) {
         PlaceDetails.Review[] reviews = details.reviews;
-        int index = 0;
-        for (PlaceDetails.Review review : reviews) {
-            JsonObject personReview = new JsonObject();
-            personReview.addProperty("authorName", review.authorName);
-            personReview.addProperty("text", review.text);
-            personReview.addProperty("rating", review.rating);
-            storeReviews.add(String.valueOf(index), personReview);
-            index++;
+        if (!(reviews == null)) {
+            for (PlaceDetails.Review review : reviews) {
+                JSONObject personReview = new JSONObject();
+                personReview.put("authorName", review.authorName);
+                personReview.put("text", review.text);
+                personReview.put("rating", review.rating);
+                storeReviews.put(personReview);
+            }
         }
     }
 }
