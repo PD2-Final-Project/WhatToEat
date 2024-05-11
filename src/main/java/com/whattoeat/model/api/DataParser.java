@@ -208,7 +208,6 @@ public class DataParser {
             // price level
             int priceLevel = -1;
             if (!(details.priceLevel == null)) {
-                System.out.println(details.priceLevel.name());
                 priceLevel = Integer.parseInt(details.priceLevel.toString());
             }
 
