@@ -2,7 +2,6 @@ package com.whattoeat.model.processor;
 
 import org.json.JSONArray;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,8 +16,9 @@ public class DataWriter {
                 e.printStackTrace();
             }
             try {
-                BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
-                bufferedWriter.write(jsonArray.toString());
+                FileWriter fileWriter = new FileWriter(file);
+                fileWriter.write(jsonArray.toString());
+                fileWriter.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }

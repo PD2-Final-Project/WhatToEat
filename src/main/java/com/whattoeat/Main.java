@@ -1,6 +1,8 @@
 package com.whattoeat;
 
 import com.whattoeat.model.api.DataParser;
+import com.whattoeat.model.processor.DataProcessor;
+import com.whattoeat.model.processor.DataWriter;
 import org.json.JSONArray;
 
 
@@ -20,7 +22,8 @@ public class Main {
             dataParser.setKeyword(keyWord);
             dataParser.setRadius(radius);
             JSONArray searchedStores = dataParser.searchNearBy();
-
+            DataProcessor processor = new DataProcessor(searchedStores);
+            DataWriter dataWriter = new DataWriter("src/test/weightedOutput.json", processor.getWeightedSearchResults());
             dataParser.close();
         } else if (runEnv.equals(Env.PRODUCT)) {
             // TODO:

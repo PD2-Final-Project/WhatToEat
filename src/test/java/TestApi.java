@@ -17,11 +17,11 @@ public class TestApi {
         runEnv = env.getRunEnv();
 
         int radius = 1000;
-        String keyWord = "cafe";
+        String keyWord = "restaurant";
         DataParser dataParser = new DataParser(apiKey, "成大");
         dataParser.setKeyword(keyWord);
         dataParser.setRadius(radius);
-        dataParser.setPlaceType(Places.CAFE);
+        dataParser.setPlaceType(Places.RESTAURANT);
         dataParser.searchNear();
         JSONArray searchedStores = dataParser.getSearchResult();
         System.out.println("Get " + dataParser.getStoresDataCount() + " data");
