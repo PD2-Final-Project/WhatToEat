@@ -6,11 +6,13 @@ public class MinMaxNormalization {
         double xmin = values[0];
         double xmax = values[0];
         for (int i = 1; i < values.length; i++) {
-            if(values[i] < xmin) {
-                xmin = values[i];
-            }
             if(values[i] > xmax) {
                 xmax = values[i];
+            }
+        }
+        for(int i = 1 ; i < values.length; i++) {
+            if(values[i] < xmin) {
+                xmin = values[i];
             }
         }
         for(int i = 0 ; i < values.length ; i ++) {

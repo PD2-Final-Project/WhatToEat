@@ -1,14 +1,12 @@
 package com.whattoeat.model.processor;
 
 import com.google.maps.model.PriceLevel;
-import com.whattoeat.model.api.DataParser;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 
 /**
  * @author Jess, learningen13@gmail.com
@@ -24,28 +22,36 @@ public class DataProcessor {
     private int distanceWeight = 5;
     private int ratingWeight = 5;
     private int moodWeight = 5;
+
     public DataProcessor(JSONArray searchResults) {
         this.searchResults = searchResults;
     }
 
-    private void setStandardizedDistanceValue(){
+    /**
+     * To standardize the distance value from 0 to 5.
+     * */
+    private void setStandardizedDetailsValues(String terms){
+        int scale = 5;
         for(int i = 0 ; i < this.searchResults.length() ; i++){
             JSONObject searchResult = this.searchResults.getJSONObject(i);
             JSONArray storeContent = searchResult.getJSONArray("storeContent");
-            double[] distanceValues = new double[storeContent.length()];
+            double[] values = new double[storeContent.length()];
             for(int j = 0 ; j < storeContent.length() ; j++) {
                 JSONObject details = storeContent.getJSONObject(j).getJSONObject("details");
-                distanceValues[j] = details.getDouble("distance");
+                values[j] = details.getDouble(terms);
             }
-            DataStandardization ds = new DataStandardization(distanceValues);
-            ds.setScale(5);
-            double[] standardizedDistanceValues = ds.getStandardizedValues();
-            for(int j = 0 ; j < standardizedDistanceValues.length ; j++) {
-                storeContent.getJSONObject(j).getJSONObject("details").put("distance", standardizedDistanceValues[j]);
+            DataStandardization ds = new DataStandardization(values);
+            ds.setScale(scale);
+            double[] standardizedValues = ds.getStandardizedValues();
+            for(int j = 0 ; j < standardizedValues.length ; j++) {
+                storeContent.getJSONObject(j).getJSONObject("details").put(terms, standardizedValues[j]);
             }
         }
     }
-
+    /**
+     * Weight the search results then determine which is higher ranking.
+     * @param storeContent is a JSONArray of each searching.
+     * */
     private JSONArray weightedSearchResultCalculator(JSONArray storeContent){
         JSONArray weightedStoreContent = new JSONArray();
         ArrayList<JSONObject> storeDetails = new ArrayList<JSONObject>();
@@ -57,10 +63,10 @@ public class DataProcessor {
             public int compare(JSONObject o1, JSONObject o2) {
                 o1 = o1.getJSONObject("details");
                 o2 = o2.getJSONObject("details");
-                int priceLevel1 = 6 - o1.getInt("priceLevel");
-                int priceLevel2 = 6 - o2.getInt("priceLevel");
-                int distance1 = o1.getInt("distance");
-                int distance2 = o2.getInt("distance");
+                double priceLevel1 = (4 - o1.getInt("priceLevel"))*1.25;
+                double priceLevel2 = (4 - o2.getInt("priceLevel"))*1.25;
+                double distance1 = 5 - o1.getInt("distance");
+                double distance2 = 5 - o2.getInt("distance");
                 double rating1 = o1.getDouble("rating");
                 double rating2 = o2.getDouble("rating");
 
@@ -79,8 +85,11 @@ public class DataProcessor {
         return weightedStoreContent;
     }
 
+    /**
+     *
+     * */
     public JSONArray getWeightedSearchResults() {
-        this.setStandardizedDistanceValue();
+        this.setStandardizedDetailsValues("distance");
         JSONArray weightedSearchResults = new JSONArray();
         // This will process each search results
         for(int i = 0 ; i < searchResults.length() ; i++) {

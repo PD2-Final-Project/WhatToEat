@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8410b76b-ebd5-4933-b774-8ef6d339aad3" name="Changes" comment="Finish the basic functions of DataProcessor.java.">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/whattoeat/model/processor/DataStandardization.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/whattoeat/model/processor/MinMaxNormalization.java" afterDir="false" />
+    <list default="true" id="8410b76b-ebd5-4933-b774-8ef6d339aad3" name="Changes" comment="Finished the basic structure of weighted functions.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/whattoeat/model/processor/DataProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/whattoeat/model/processor/DataProcessor.java" afterDir="false" />
     </list>
@@ -70,7 +66,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
+    "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "File.Encoding",
@@ -147,7 +143,7 @@
       <workItem from="1715185831923" duration="15000" />
       <workItem from="1715185862374" duration="221000" />
       <workItem from="1715447096718" duration="30000" />
-      <workItem from="1715611778415" duration="3590000" />
+      <workItem from="1715611778415" duration="5500000" />
     </task>
     <task id="LOCAL-00001" summary="Initialize">
       <option name="closed" value="true" />
@@ -165,7 +161,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715446961098</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Finished the basic structure of weighted functions.">
+      <option name="closed" value="true" />
+      <created>1715615478928</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1715615478928</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -176,7 +180,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -185,7 +201,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initialize" />
     <MESSAGE value="Finish the basic functions of DataProcessor.java." />
-    <option name="LAST_COMMIT_MESSAGE" value="Finish the basic functions of DataProcessor.java." />
+    <MESSAGE value="Finished the basic structure of weighted functions." />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished the basic structure of weighted functions." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
