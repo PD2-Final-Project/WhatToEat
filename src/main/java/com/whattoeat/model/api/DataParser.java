@@ -10,6 +10,10 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.Arrays;
 
+
+/**
+ * @author hding4915
+ * */
 public class DataParser {
     private final GeoApiContext context;
     private final String apiKey;
@@ -25,6 +29,10 @@ public class DataParser {
     private JSONArray searchResult = null;
 
 
+    /**
+     * @param apiKey - Put the google map api key.
+     * @param location - Set the location that you want to search.
+     * */
     public DataParser(String apiKey, String location) {
         this.apiKey = apiKey;
         context = new GeoApiContext.Builder()
@@ -38,36 +46,60 @@ public class DataParser {
         finishSearch = false;
     }
 
+    /**
+     * @param minPreferPrice - Set the min price for searching.
+     * @see PriceLevel
+     * */
     public void setMinPreferPrice(PriceLevel minPreferPrice) {
         this.minPreferPrice = minPreferPrice;
         reset();
     }
 
+    /**
+     * @param maxPreferPrice - Set the max price for searching.
+     * @see PriceLevel
+     * */
     public void setMaxPreferPrice(PriceLevel maxPreferPrice) {
         this.maxPreferPrice = maxPreferPrice;
         reset();
     }
 
+    /**
+     * @param places Set the place type for searching so that the searching
+     *               result can be precise.
+     * @see Places
+     * */
     public void setPlaceType(@NotNull Places places) {
         this.placeType = PlaceType.valueOf(places.name());
     }
 
+    /**
+     * <p>
+     *     Specifies the distance (in meters) within which to return place results.
+     *     The maximum allowed radius is 50,000 meters.
+     * </p>
+     * @param radius - Set the distance in meters around the location to search.
+     * */
     public void setRadius(int radius) {
         this.radius = radius;
         reset();
     }
 
+    /**
+     * <p>
+     *     Specifies a term to be matched against all content that you want to search for.
+     *     You may assign keyword like: "beef", "cafe", ...
+     * </p>
+     * @param keyword - Set the keyword for searching.
+     * */
     public void setKeyword(String keyword) {
         this.keyword = keyword;
         reset();
     }
 
-    public PlaceType getPlaceType() {
-        return placeType;
-    }
-
-    public int getStoresDataCount() { return this.storesDataCount; }
-
+    /**
+     * @param location - Set the location for searching.
+     * */
     public void setSelfLocation(String location) {
         GeocodingResult[] geocodingResults = parseGeocode(location);
         for (GeocodingResult geocodingResult : geocodingResults) {
@@ -77,6 +109,32 @@ public class DataParser {
         reset();
     }
 
+    /**
+     * @return Get current place type. The default value is PlaceType.RESTAURANT
+     * @see PlaceType
+     * */
+    public PlaceType getPlaceType() {
+        return placeType;
+    }
+
+    public PriceLevel getMinPreferPrice() {
+        return minPreferPrice;
+    }
+
+    public PriceLevel getMaxPreferPrice() {
+        return maxPreferPrice;
+    }
+
+    /**
+     * @return Get the number of the data for searching.
+     * */
+    public int getStoresDataCount() { return this.storesDataCount; }
+
+    /**
+     * @param location - The location you want to request.
+     * @return Type of {@link GeocodingResult[]}.
+     *         It contains placeId, formattedAddress, geometry, ......
+     * */
     public GeocodingResult[] parseGeocode(String location) {
         GeocodingApiRequest geocodingApiRequest = GeocodingApi.geocode(context, location);
         GeocodingResult[] geocodingResults = null;
@@ -90,6 +148,12 @@ public class DataParser {
         return geocodingResults;
     }
 
+    /**
+     * <p>
+     *     Close the GeoApiContext.
+     * </p>
+     * @throws RuntimeException if the {@link IOException} were caught.
+     * */
     public void close() {
         try {
             context.close();
@@ -98,34 +162,69 @@ public class DataParser {
         }
     }
 
+
+    /**
+     * <p>
+     *     It will search the places nearby from the location you set
+     *     and also parse data and store it to {@link JSONArray}. <br>
+     *     You can get it by calling {@link DataParser#getSearchResult()}
+     * </p>
+     * */
     public void searchNear() {
         if (searchResult == null) {
             searchResult = searchNearBy();
         }
-        searchResult = searchNearBy(searchResult);
+        searchNearBy(searchResult);
     }
 
+
+    /**
+     * <p>
+     *      It will search the places nearby several times
+     *      by calling {@link DataParser#searchNear()} for the search times you assigned.
+     * </p>
+     * @param searchTimes - The times you want to search.
+     * */
     public void searchNear(int searchTimes) {
         for (int i = 0; i < searchTimes; i++) {
             searchNear();
         }
     }
 
+    /**
+     * @return Type of {@link JSONArray}.
+     *         You will get the searching result with JSONArray format.
+     * */
     public JSONArray getSearchResult() {
         return searchResult;
     }
 
+
+    /**
+     * <p>
+     *     It will search the places nearby from the location you set
+     *     and also parse data and return a {@link JSONArray}. <br>
+     * </p>
+     * @return Type of {@link JSONArray} for the searching result.
+     * */
     public JSONArray searchNearBy() {
         return searchNearBy(new JSONArray());
     }
 
+    /**
+     * <p>
+     *     It will search the places nearby from the location you set
+     *     several times and also parse data and return a {@link JSONArray}. <br>
+     * </p>
+     * @return Type of {@link JSONArray} for the searching result.
+     * */
     public JSONArray searchNearBy(int searchTimes) {
         if (searchTimes <= 1) {
             return searchNearBy();
         } else {
             JSONArray searchedStores = new JSONArray();
             for (int i = 0; i < searchTimes; i++) {
-                searchedStores = searchNearBy(searchedStores);
+                searchNearBy(searchedStores);
                 if (finishSearch) {
                     break;
                 }
@@ -134,6 +233,13 @@ public class DataParser {
         }
     }
 
+    /**
+     * <p>
+     *     It will search the places nearby from the location you set
+     *     and also parse data to the {@link JSONArray} you passed in and return it. <br>
+     * </p>
+     * @return Type of {@link JSONArray} for the searching result.
+     * */
     public JSONArray searchNearBy(JSONArray searchedStores) {
         if (selfLocationDetails == null) {
             System.err.println("location is null, please set the location");
@@ -175,6 +281,13 @@ public class DataParser {
         return searchedStores;
     }
 
+    /**
+     * <p>
+     *     It will parse the details of the place by the place id.
+     * </p>
+     * @param placeId - The place id of the place.
+     * @return Type of {@link PlaceDetails}.
+     * */
     public PlaceDetails getPlaceDetails(String placeId) {
         PlaceDetailsRequest placeDetailsRequest = new PlaceDetailsRequest(context);
         placeDetailsRequest.placeId(placeId);
@@ -193,8 +306,18 @@ public class DataParser {
         return details;
     }
 
+    /**
+     * <p>
+     *     Count the distance between multiple origin and destination.
+     * </p>
+     * @param origin - Multiple origin. It should be the address of the place.
+     * @param destination - Multiple destination. It should be the address of the place.
+     * @return Type of {@link DistanceMatrix}.
+     * */
     public DistanceMatrix countDistance(String[] origin, String[] destination) {
         DistanceMatrixApiRequest request = DistanceMatrixApi.getDistanceMatrix(context, origin, destination);
+        request.mode(TravelMode.WALKING);
+        request.transitRoutingPreference(TransitRoutingPreference.LESS_WALKING);
         DistanceMatrix matrix = null;
         try {
             matrix = request.await();
@@ -203,6 +326,7 @@ public class DataParser {
         } finally {
 
         }
+//        matrix.rows[0].elements[0].
         return matrix;
     }
 
@@ -253,8 +377,8 @@ public class DataParser {
             long meter = getDistance(details);
 
             // price level
-            int priceLevel = -1;
-            if (!(details.priceLevel == null)) {
+            int priceLevel = Integer.parseInt(PriceLevel.MODERATE.toString());
+            if (!(details.priceLevel == null || details.priceLevel.toString().equals("Unknown"))) {
                 priceLevel = Integer.parseInt(details.priceLevel.toString());
             }
 
