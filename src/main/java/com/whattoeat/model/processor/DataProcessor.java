@@ -23,12 +23,17 @@ public class DataProcessor {
     private int ratingWeight = 5;
     private int moodWeight = 5;
 
+    /**
+     * @param searchResults is the JSONArray of the search results.
+     * */
     public DataProcessor(JSONArray searchResults) {
         this.searchResults = searchResults;
     }
 
     /**
      * To standardize the distance value from 0 to 5.
+     * @param terms is the key in the details object.
+     * The meethod will standardize the value of the key in the details object.
      * */
     private void setStandardizedDetailsValues(String terms){
         int scale = 5;
@@ -86,7 +91,8 @@ public class DataProcessor {
     }
 
     /**
-     *
+     *  To get the weighted search results.
+     *  @return JSONArray of the weighted search results.
      * */
     public JSONArray getWeightedSearchResults() {
         this.setStandardizedDetailsValues("distance");

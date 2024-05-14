@@ -16,7 +16,7 @@ public class Main {
         runEnv = env.getRunEnv();
 
         if (runEnv.equals(Env.DEV)) {
-            int radius = 1000;
+            int radius = 500;
             String keyWord = "restaurant";
             DataParser dataParser = new DataParser(apiKey, "成功大學");
             dataParser.setKeyword(keyWord);
