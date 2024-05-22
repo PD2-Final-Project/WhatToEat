@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.Arrays;
+import com.whattoeat.model.api.TimeSplit;
 
 
 /**
@@ -26,19 +27,28 @@ public class DataParser {
     private int radius = 1000;
     private int storesDataCount = 0;
     private boolean finishSearch = false;
-    private JSONArray searchResult = null;
+    private JSONObject searchResult = null;
 
+    private final TimeSplit timeSplit;
 
     /**
      * @param apiKey - Put the google map api key.
      * @param location - Set the location that you want to search.
      * */
     public DataParser(String apiKey, String location) {
+        this(apiKey, location, 2.0);
+    }
+
+    public DataParser(String apiKey, String location, double timeSpan) {
         this.apiKey = apiKey;
         context = new GeoApiContext.Builder()
                 .apiKey(this.apiKey)
                 .build();
         setSelfLocation(location);
+        if (timeSpan <= 0) {
+            timeSpan = 2.0;
+        }
+        this.timeSplit = new TimeSplit(timeSpan);
     }
 
     private void reset() {
@@ -117,10 +127,18 @@ public class DataParser {
         return placeType;
     }
 
+    /**
+     * @return Get the min preference price. The default value is null.
+     * @see PriceLevel
+     */
     public PriceLevel getMinPreferPrice() {
         return minPreferPrice;
     }
 
+    /**
+     * @return Get the max preference price. The default value is null.
+     * @see PriceLevel
+     */
     public PriceLevel getMaxPreferPrice() {
         return maxPreferPrice;
     }
@@ -132,7 +150,7 @@ public class DataParser {
 
     /**
      * @param location - The location you want to request.
-     * @return Type of {@link GeocodingResult[]}.
+     * @return Type of {@link GeocodingResult}[].
      *         It contains placeId, formattedAddress, geometry, ......
      * */
     public GeocodingResult[] parseGeocode(String location) {
@@ -141,6 +159,7 @@ public class DataParser {
         try {
             geocodingResults = geocodingApiRequest.await();
         } catch (ApiException | IOException | InterruptedException e) {
+            geocodingApiRequest.cancel();
             e.printStackTrace();
         } finally {
 
@@ -166,7 +185,7 @@ public class DataParser {
     /**
      * <p>
      *     It will search the places nearby from the location you set
-     *     and also parse data and store it to {@link JSONArray}. <br>
+     *     and also parse data and store it to {@link JSONObject}. <br>
      *     You can get it by calling {@link DataParser#getSearchResult()}
      * </p>
      * */
@@ -192,10 +211,10 @@ public class DataParser {
     }
 
     /**
-     * @return Type of {@link JSONArray}.
+     * @return Type of {@link JSONObject}.
      *         You will get the searching result with JSONArray format.
      * */
-    public JSONArray getSearchResult() {
+    public JSONObject getSearchResult() {
         return searchResult;
     }
 
@@ -203,26 +222,27 @@ public class DataParser {
     /**
      * <p>
      *     It will search the places nearby from the location you set
-     *     and also parse data and return a {@link JSONArray}. <br>
+     *     and also parse data and return a {@link JSONObject}. <br>
      * </p>
-     * @return Type of {@link JSONArray} for the searching result.
+     * @return Type of {@link JSONObject} for the searching result.
      * */
-    public JSONArray searchNearBy() {
-        return searchNearBy(new JSONArray());
+    public JSONObject searchNearBy() {
+        return searchNearBy(new JSONObject());
     }
 
     /**
      * <p>
      *     It will search the places nearby from the location you set
-     *     several times and also parse data and return a {@link JSONArray}. <br>
+     *     several times and also parse data and return a {@link JSONObject}. <br>
      * </p>
-     * @return Type of {@link JSONArray} for the searching result.
+     * @param searchTimes - The times you want to search.
+     * @return Type of {@link JSONObject} for the searching result.
      * */
-    public JSONArray searchNearBy(int searchTimes) {
+    public JSONObject searchNearBy(int searchTimes) {
         if (searchTimes <= 1) {
             return searchNearBy();
         } else {
-            JSONArray searchedStores = new JSONArray();
+            JSONObject searchedStores = new JSONObject();
             for (int i = 0; i < searchTimes; i++) {
                 searchNearBy(searchedStores);
                 if (finishSearch) {
@@ -236,17 +256,22 @@ public class DataParser {
     /**
      * <p>
      *     It will search the places nearby from the location you set
-     *     and also parse data to the {@link JSONArray} you passed in and return it. <br>
+     *     and also parse data to the {@link JSONObject} you passed in and return it. <br>
      * </p>
-     * @return Type of {@link JSONArray} for the searching result.
+     * @param searchedStores - The searched result you got before.
+     * @return Type of {@link JSONObject} for the searching result.
      * */
-    public JSONArray searchNearBy(JSONArray searchedStores) {
+    public JSONObject searchNearBy(JSONObject searchedStores) {
         if (selfLocationDetails == null) {
-            System.err.println("location is null, please set the location");
+            System.err.println("Location is null, please set the location");
             return null;
         }
         if (finishSearch) {
-            return searchedStores;
+            if (checkTimeToSearch(searchedStores)) {
+                reset();
+            } else {
+                return searchedStores;
+            }
         }
         LatLng location = selfLocationDetails.geometry.location;
         NearbySearchRequest nearbySearchRequest = new NearbySearchRequest(context);
@@ -274,6 +299,7 @@ public class DataParser {
             }
             parseResults(response.results, searchedStores);
         } catch (ApiException | IOException | InterruptedException e) {
+            nearbySearchRequest.cancel();
             e.printStackTrace();
         } finally {
 
@@ -299,6 +325,7 @@ public class DataParser {
         try {
             details = placeDetailsRequest.await();
         } catch (IllegalStateException | IOException | InterruptedException | ApiException e) {
+            placeDetailsRequest.cancel();
             e.printStackTrace();
         } finally {
 
@@ -322,41 +349,49 @@ public class DataParser {
         try {
             matrix = request.await();
         } catch (ApiException | InterruptedException | IOException e) {
+            request.cancel();
             e.printStackTrace();
         } finally {
 
         }
-//        matrix.rows[0].elements[0].
         return matrix;
     }
 
-    private void parseResults(PlacesSearchResult[] results, @NotNull JSONArray searchedStores) {
-        JSONObject storeJson = null;
+    private boolean checkTimeToSearch(@NotNull JSONObject searchedStores) {
+        if (searchedStores.has("searchTime")) {
+            String searchTime = searchedStores.getString("searchTime");
+            try {
+                return timeSplit.checkTimeInterval(searchTime);
+            } catch (InvalidTimeFormatException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return false;
+    }
+
+    private void parseResults(PlacesSearchResult[] results, @NotNull JSONObject searchedStores) {
         JSONArray storeContent = null;
         String addressValue = selfLocationDetails.formattedAddress;
         String keywordValue = String.valueOf(keyword);
         String radiusValue = String.valueOf(radius);
+        boolean findObject = false;
 
-        boolean findJsonObject = false;
-        for (Object object: searchedStores) {
-            JSONObject jsonObject = (JSONObject) object;
-            String location = jsonObject.getString("location");
-            String keyword = jsonObject.getString("keyword");
-            String radius = jsonObject.getString("radius");
+        if (searchedStores.has("location")) {
+            String location = searchedStores.getString("location");
+            String keyword = searchedStores.getString("keyword");
+            String radius = searchedStores.getString("radius");
             if (location.equals(addressValue) && keyword.equals(keywordValue) && radius.equals(radiusValue)) {
-                storeJson = jsonObject;
-                storeContent = jsonObject.getJSONArray("storeContent");
-                findJsonObject = true;
-                break;
+                storeContent = searchedStores.getJSONArray("storeContent");
+                findObject = true;
             }
         }
-        if (!findJsonObject) {
-            storeJson = new JSONObject();
-            storeJson.put("location", addressValue);
-            storeJson.put("keyword", keywordValue);
-            storeJson.put("radius", radiusValue);
+        if (!findObject) {
+            searchedStores.put("location", addressValue);
+            searchedStores.put("keyword", keywordValue);
+            searchedStores.put("radius", radiusValue);
+            searchedStores.put("searchTime", timeSplit.getNowTime());
             storeContent = new JSONArray();
-            storeJson.put("storeContent", storeContent);
+            searchedStores.put("storeContent", storeContent);
         }
         for (PlacesSearchResult result : results) {
             PlaceDetails details = getPlaceDetails(result.placeId);
@@ -399,9 +434,6 @@ public class DataParser {
             storeDetails.put("details", advanceDetails);
             storeContent.put(storeDetails);
             storesDataCount++;
-        }
-        if (!findJsonObject) {
-            searchedStores.put(storeJson);
         }
     }
 

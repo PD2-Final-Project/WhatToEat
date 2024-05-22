@@ -7,7 +7,7 @@ public enum Places {
     CONVENIENCE_STORE(3),
     BAR(4);
 
-    private int value;
+    private final int value;
     private Places(int value) {
         this.value = value;
     }
