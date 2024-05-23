@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class DataWriter {
     public DataWriter(String filePath, JSONObject jsonObject) {
         File file = new File(filePath);
-        if(!file.exists() || JSONValidity.isValidJSONFile(filePath)) {
+        if(!file.exists() || !JSONValidity.isValidJSONFile(filePath)) {
             try {
                 file.createNewFile();
             } catch (IOException e) {

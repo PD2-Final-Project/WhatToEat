@@ -13,6 +13,25 @@ import com.whattoeat.model.api.TimeSplit;
 
 
 /**
+ * <p>
+ * The DataParser is used to parse the data from google map. <br>
+ * You should provide the google map api key and the location you want to search neary by. <br>
+ * You can also assign the time span to determine whether to search again if the given search conditions are the same as before. <br>
+ * The default time span is 2.0 hours. <br>
+ * Example:
+ * <blockquotes><pre>
+ *     {@code
+ *          DataParser dataParser = new DataParser("AIzaSyA...", "your location", 2.0);
+ *          dataParser.setKeyword(keyWord);
+ *          dataParser.setRadius(radius);
+ *          dataParser.setPlaceType(Places.RESTAURANT);
+ *          dataParser.searchNear();
+ *          JSONObject searchedStores = dataParser.getSearchResult();
+ *          dataParser.close();
+ *     }
+ * </pre></blockquotes>
+ * @see Places
+ * @see JSONObject
  * @author hding4915
  * */
 public class DataParser {
@@ -39,6 +58,11 @@ public class DataParser {
         this(apiKey, location, 2.0);
     }
 
+    /**
+     * @param apiKey - Put the google map api key.
+     * @param location - Set the location that you want to search.
+     * @param timeSpan - Set the time span in hours to determine whether to search again if the given search conditions are the same as before.
+     * */
     public DataParser(String apiKey, String location, double timeSpan) {
         this.apiKey = apiKey;
         context = new GeoApiContext.Builder()
@@ -85,9 +109,8 @@ public class DataParser {
 
     /**
      * <p>
-     *     Specifies the distance (in meters) within which to return place results.
-     *     The maximum allowed radius is 50,000 meters.
-     * </p>
+     * Specifies the distance (in meters) within which to return place results.
+     * The maximum allowed radius is 50,000 meters.
      * @param radius - Set the distance in meters around the location to search.
      * */
     public void setRadius(int radius) {
@@ -97,9 +120,8 @@ public class DataParser {
 
     /**
      * <p>
-     *     Specifies a term to be matched against all content that you want to search for.
-     *     You may assign keyword like: "beef", "cafe", ...
-     * </p>
+     * Specifies a term to be matched against all content that you want to search for.
+     * You may assign keyword like: "beef", "cafe", ...
      * @param keyword - Set the keyword for searching.
      * */
     public void setKeyword(String keyword) {
@@ -152,9 +174,11 @@ public class DataParser {
      * @param location - The location you want to request.
      * @return Type of {@link GeocodingResult}[].
      *         It contains placeId, formattedAddress, geometry, ......
+     *         It could be null if the given location is invalid.
      * */
     public GeocodingResult[] parseGeocode(String location) {
         GeocodingApiRequest geocodingApiRequest = GeocodingApi.geocode(context, location);
+        geocodingApiRequest.language("zh-TW");
         GeocodingResult[] geocodingResults = null;
         try {
             geocodingResults = geocodingApiRequest.await();
@@ -169,8 +193,7 @@ public class DataParser {
 
     /**
      * <p>
-     *     Close the GeoApiContext.
-     * </p>
+     * Close the GeoApiContext.
      * @throws RuntimeException if the {@link IOException} were caught.
      * */
     public void close() {
@@ -184,10 +207,9 @@ public class DataParser {
 
     /**
      * <p>
-     *     It will search the places nearby from the location you set
-     *     and also parse data and store it to {@link JSONObject}. <br>
-     *     You can get it by calling {@link DataParser#getSearchResult()}
-     * </p>
+     * It will search the places nearby from the location you set
+     * and also parse data and store it to {@link JSONObject}. <br>
+     * You can get it by calling {@link DataParser#getSearchResult()}
      * */
     public void searchNear() {
         if (searchResult == null) {
@@ -199,9 +221,8 @@ public class DataParser {
 
     /**
      * <p>
-     *      It will search the places nearby several times
-     *      by calling {@link DataParser#searchNear()} for the search times you assigned.
-     * </p>
+     * It will search the places nearby several times
+     * by calling {@link DataParser#searchNear()} for the search times you assigned.
      * @param searchTimes - The times you want to search.
      * */
     public void searchNear(int searchTimes) {
@@ -221,9 +242,8 @@ public class DataParser {
 
     /**
      * <p>
-     *     It will search the places nearby from the location you set
-     *     and also parse data and return a {@link JSONObject}. <br>
-     * </p>
+     * It will search the places nearby from the location you set
+     * and also parse data and return a {@link JSONObject}. <br>
      * @return Type of {@link JSONObject} for the searching result.
      * */
     public JSONObject searchNearBy() {
@@ -232,9 +252,8 @@ public class DataParser {
 
     /**
      * <p>
-     *     It will search the places nearby from the location you set
-     *     several times and also parse data and return a {@link JSONObject}. <br>
-     * </p>
+     * It will search the places nearby from the location you set
+     * several times and also parse data and return a {@link JSONObject}. <br>
      * @param searchTimes - The times you want to search.
      * @return Type of {@link JSONObject} for the searching result.
      * */
@@ -255,16 +274,17 @@ public class DataParser {
 
     /**
      * <p>
-     *     It will search the places nearby from the location you set
-     *     and also parse data to the {@link JSONObject} you passed in and return it. <br>
-     * </p>
+     * It will search the places nearby from the location you set
+     * and also parse data to the {@link JSONObject} you passed in and return it. <br>
      * @param searchedStores - The searched result you got before.
      * @return Type of {@link JSONObject} for the searching result.
      * */
     public JSONObject searchNearBy(JSONObject searchedStores) {
         if (selfLocationDetails == null) {
-            System.err.println("Location is null, please set the location");
-            return null;
+            throw new IllegalArgumentException(
+                    "Location details is null. " +
+                    "It could happen if you have not set the location yet or the given location is invalid. " +
+                    "Please provide or change the location");
         }
         if (finishSearch) {
             if (checkTimeToSearch(searchedStores)) {
@@ -309,8 +329,7 @@ public class DataParser {
 
     /**
      * <p>
-     *     It will parse the details of the place by the place id.
-     * </p>
+     * It will parse the details of the place by the place id.
      * @param placeId - The place id of the place.
      * @return Type of {@link PlaceDetails}.
      * */
@@ -335,8 +354,7 @@ public class DataParser {
 
     /**
      * <p>
-     *     Count the distance between multiple origin and destination.
-     * </p>
+     * Count the distance between multiple origin and destination.
      * @param origin - Multiple origin. It should be the address of the place.
      * @param destination - Multiple destination. It should be the address of the place.
      * @return Type of {@link DistanceMatrix}.

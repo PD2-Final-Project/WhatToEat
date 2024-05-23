@@ -7,13 +7,12 @@ import java.util.regex.Pattern;
 import com.whattoeat.model.api.InvalidTimeFormatException;
 
 /**
- * @author hding4915
  * <p>
- *     The class is used to get the current time.
- *     Which has the precision like 2024/1/1 15:30. <br>
- *     And also check whether the time is greater than the time with the value time span you set.
- *     The default time span is 2.0 hours.
- * </p>
+ * The class is used to get the current time.
+ * Which has the precision like 2024/1/1 15:30. <br>
+ * And also check whether the time is greater than the time with the value time span you set.
+ * The default time span is 2.0 hours.
+ * @author hding4915
  * */
 public class TimeSplit {
     private final double timeSpan;
