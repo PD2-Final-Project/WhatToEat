@@ -3,6 +3,7 @@ import com.whattoeat.Env;
 import com.whattoeat.model.api.DataParser;
 import com.whattoeat.model.api.Places;
 import org.json.JSONArray;
+import org.json.JSONObject;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -17,13 +18,13 @@ public class TestApi {
         runEnv = env.getRunEnv();
 
         int radius = 1000;
-        String keyWord = "cafe";
-        DataParser dataParser = new DataParser(apiKey, "成大");
+        String keyWord = "restaurant";
+        DataParser dataParser = new DataParser(apiKey, "台南");
         dataParser.setKeyword(keyWord);
         dataParser.setRadius(radius);
-        dataParser.setPlaceType(Places.CAFE);
+        dataParser.setPlaceType(Places.RESTAURANT);
         dataParser.searchNear();
-        JSONArray searchedStores = dataParser.getSearchResult();
+        JSONObject searchedStores = dataParser.getSearchResult();
         System.out.println("Get " + dataParser.getStoresDataCount() + " data");
 
         try (FileWriter writer = new FileWriter("src/test/java/test.json")) {

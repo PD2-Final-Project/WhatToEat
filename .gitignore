@@ -46,3 +46,4 @@ src/env.json
 
 ### Test Files ###
 src/test/java/test.json
+src/test/weightedOutput.json
