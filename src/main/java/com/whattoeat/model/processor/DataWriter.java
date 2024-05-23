@@ -1,5 +1,6 @@
 package com.whattoeat.model.processor;
 
+import com.whattoeat.model.JSONValidity;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -10,9 +11,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class DataWriter {
-    public DataWriter(String filePath, JSONArray jsonArray) {
+    public DataWriter(String filePath, JSONObject jsonObject) {
         File file = new File(filePath);
-        if(!file.exists()) {
+        if(!file.exists() || JSONValidity.isValidJSONFile(filePath)) {
             try {
                 file.createNewFile();
             } catch (IOException e) {
@@ -20,6 +21,8 @@ public class DataWriter {
             }
             try {
                 FileWriter fileWriter = new FileWriter(file);
+                JSONArray jsonArray = new JSONArray();
+                jsonArray.put(jsonObject);
                 fileWriter.write(jsonArray.toString());
                 fileWriter.close();
             } catch (IOException e) {
@@ -39,8 +42,8 @@ public class DataWriter {
                     keyword.add(searchResult.getString("keyword"));
                     radius.add(searchResult.getString("radius"));
                 }
-                for(int i = 0 ; i < jsonArray.length() ; i++) {
-                    JSONObject searchResult = jsonArray.getJSONObject(i);
+                for(int i = 0 ; i < searchResults.length() ; i++) {
+                    JSONObject searchResult = searchResults.getJSONObject(i);
                     String insertLocation = searchResult.getString("location");
                     String insertKeyword = searchResult.getString("keyword");
                     String insertRadius = searchResult.getString("radius");
