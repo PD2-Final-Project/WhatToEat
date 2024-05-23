@@ -4,7 +4,6 @@ import com.whattoeat.model.api.DataParser;
 import com.whattoeat.model.api.Places;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.io.FileWriter;
 import java.io.IOException;
 
