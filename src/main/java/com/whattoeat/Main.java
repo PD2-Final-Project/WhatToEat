@@ -1,9 +1,7 @@
 package com.whattoeat;
 
 import com.whattoeat.model.api.DataParser;
-import org.json.JSONArray;
-
-import com.whattoeat.model.StoresDataQuery;
+import org.json.JSONObject;
 
 public class Main {
     public static void main(String[] args) {
@@ -22,7 +20,7 @@ public class Main {
             DataParser dataParser = new DataParser(apiKey, "成功大學");
             dataParser.setKeyword(keyWord);
             dataParser.setRadius(radius);
-            JSONArray searchedStores = dataParser.searchNearBy();
+            JSONObject searchResult = dataParser.getSearchResult();
             dataParser.close();
         } else if (runEnv.equals(Env.PRODUCT)) {
             // TODO:

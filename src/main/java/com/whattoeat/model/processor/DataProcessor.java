@@ -16,12 +16,10 @@ public class DataProcessor {
     private JSONObject searchResult;
     private int priceLevel = Integer.valueOf(PriceLevel.MODERATE.toString());
     private double rating = 3;
-    private int mood = Mood.CALM.getMoodCode();
     // The value of weight scales from 0 to 10
-    private int priceLevelWeight = 5;
-    private int distanceWeight = 5;
-    private int ratingWeight = 5;
-    private int moodWeight = 5;
+    private double priceLevelWeight = 7.50;
+    private double distanceWeight = 7.69;
+    private double ratingWeight = 6.15;
 
     /**
      * @param searchResult is the JSONArray of the search results.
@@ -101,5 +99,17 @@ public class DataProcessor {
         JSONArray storeContent = searchResult.getJSONArray("storeContent");
         weightedSearchResult.put("storeContent", weightedSearchResultCalculator(storeContent));
         return weightedSearchResult;
+    }
+
+    public void setMood(Mood mood) {
+        if(mood == Mood.GOOD){
+            this.priceLevelWeight *= 0.3;
+            this.ratingWeight *= 2;
+            this.distanceWeight = 0.2;
+        } else if(mood == Mood.BAD) {
+            this.priceLevelWeight *= 0.7;
+            this.ratingWeight *= 1.3;
+            this.distanceWeight *= 1.4;
+        }
     }
 }
