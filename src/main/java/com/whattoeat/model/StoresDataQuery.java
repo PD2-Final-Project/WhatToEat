@@ -4,6 +4,7 @@ import com.whattoeat.Env;
 import com.whattoeat.model.api.DataParser;
 import com.whattoeat.model.processor.DataProcessor;
 import com.whattoeat.model.processor.DataWriter;
+import com.whattoeat.model.processor.Mood;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -29,7 +30,11 @@ public class StoresDataQuery {
      * @param radius The radius desired to search.
      * */
     public StoresDataQuery(String location, String keyword, int radius) {
-        this.searchResult = this.getSearchResult(this.path, location, keyword, radius);
+        this.searchResult = this.getSearchResult(this.path, location, keyword, radius, Mood.NORMAL);
+        this.storesData = new StoresData(this.searchResult.getJSONArray("storeContent"));
+    }
+    public StoresDataQuery(String location, String keyword, int radius, Mood mood) {
+        this.searchResult = this.getSearchResult(this.path, location, keyword, radius, mood);
         this.storesData = new StoresData(this.searchResult.getJSONArray("storeContent"));
     }
 
@@ -37,7 +42,7 @@ public class StoresDataQuery {
      * @param path The path of the file to store.
      * <p> This will return the search results by given conditions </p>
      * */
-    private JSONObject getSearchResult(String path, String location, String keyword, int radius) {
+    private JSONObject getSearchResult(String path, String location, String keyword, int radius, Mood mood) {
         // If the data has been found inside the file, then return it;
         try {
             File file = new File(path);
@@ -47,9 +52,11 @@ public class StoresDataQuery {
                 JSONArray searchResults = new JSONArray(new JSONTokener(reader));
                 if (!searchResults.isEmpty()) {
                     for (int i = 0; i < searchResults.length(); i++) {
+                        Long timeGap = Long.parseLong(searchResults.getJSONObject(i).getString("searchTime")) - System.currentTimeMillis();
                         if (searchResults.getJSONObject(i).getString("keyword").equals(keyword) &&
                                 searchResults.getJSONObject(i).getString("location").equals(location) &&
-                                searchResults.getJSONObject(i).getInt("radius") == radius
+                                searchResults.getJSONObject(i).getInt("radius") == radius &&
+                                timeGap < (1000*60*60*2)
                         ) {
                             reader.close();
                             return searchResults.getJSONObject(i);
@@ -68,6 +75,7 @@ public class StoresDataQuery {
         dataParser.setKeyword(keyword);
         dataParser.setRadius(radius);
         DataProcessor processor = new DataProcessor(dataParser.searchNearBy());
+        processor.setMood(mood);
         // TODO: hard coded
         DataWriter dataWriter = new DataWriter("src/test/weightedOutput.json", processor.getWeightedSearchResult());
         return processor.getWeightedSearchResult();
