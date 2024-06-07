@@ -1,3 +1,4 @@
+package com.whattoeat.ui;
 import com.whattoeat.model.StoresDataQuery;
 
 import javax.swing.*;

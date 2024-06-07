@@ -4,8 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8410b76b-ebd5-4933-b774-8ef6d339aad3" name="Changes" comment="Add UI.java">
+    <list default="true" id="8410b76b-ebd5-4933-b774-8ef6d339aad3" name="Changes" comment="Finished the basic structure of weighted functions.">
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_5_22__08_24__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_5_22_下午_08_24_[Changes]/shelved.patch" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/whattoeat/ui/Frame2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/whattoeat/ui/Frame2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/whattoeat/ui/UI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/whattoeat/ui/UI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +21,37 @@
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="WhatToEat" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="WhatToEat" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="WhatToEat" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -41,12 +77,16 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;git@github.com:PD2-Final-Project/WhatToEat.git&quot;,
-    &quot;accountId&quot;: &quot;1666b8bd-1136-48d5-b8b3-e9bc4aa4b4f4&quot;
+    &quot;url&quot;: &quot;https://github.com/PD2-Final-Project/WhatToEat.git&quot;,
+    &quot;accountId&quot;: &quot;6e08e12f-2111-4ab2-af9c-2a0fa0daf1d2&quot;
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.json/json/20240303/1245e385b5212a5a1403458d23aebcf8b0a11463/json-20240303-sources.jar!/org/json/JSONArray.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.json/json/20240303/1245e385b5212a5a1403458d23aebcf8b0a11463/json-20240303-sources.jar!/org/json/JSONArray.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/whattoeat/ui/UI_alpha1.java" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
@@ -59,15 +99,20 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.Main.executor": "Run",
+    "Application.TestApi.executor": "Run",
+    "Application.UI.executor": "Run",
+    "Application.UI_alpha1.executor": "Run",
     "Gradle.Build WhatToEat.executor": "Run",
     "Gradle.Download Sources.executor": "Run",
     "Gradle.WhatToEat [:Main.main()].executor": "Run",
     "Gradle.WhatToEat [:TestApi.main()].executor": "Run",
-    "Gradle.WhatToEat [:ui.main()].executor": "Run",
+    "Gradle.WhatToEat [assemble].executor": "Run",
     "Kotlin script (Beta).build.gradle.kts.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "features/ui",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -77,7 +122,7 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "File.Encoding",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -86,7 +131,7 @@
       <recent name="F:\ncku\pd2\WhatToEat\src" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.UI">
+  <component name="RunManager" selected="Gradle.WhatToEat [assemble]">
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.whattoeat.Main" />
       <module name="WhatToEat.main" />
@@ -108,12 +153,27 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="UI" />
-      <module name="WhatToEat.main" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+    <configuration name="WhatToEat [assemble]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="assemble" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
     </configuration>
     <configuration name="build.gradle.kts" type="KotlinStandaloneScriptRunConfigurationType" temporary="true" nameIsGenerated="true">
       <module name="WhatToEat" />
@@ -126,27 +186,17 @@
     </configuration>
     <list>
       <item itemvalue="Application.Main" />
-      <item itemvalue="Application.UI" />
       <item itemvalue="Application.TestApi" />
+      <item itemvalue="Gradle.WhatToEat [assemble]" />
       <item itemvalue="Kotlin script (Beta).build.gradle.kts" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.UI" />
-        <item itemvalue="Kotlin script (Beta).build.gradle.kts" />
+        <item itemvalue="Gradle.WhatToEat [assemble]" />
         <item itemvalue="Application.TestApi" />
         <item itemvalue="Kotlin script (Beta).build.gradle.kts" />
-        <item itemvalue="Application.TestApi" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
-        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
-      </set>
-    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -190,15 +240,7 @@
       <option name="project" value="LOCAL" />
       <updated>1715615478928</updated>
     </task>
-    <task id="LOCAL-00004" summary="Add UI.java">
-      <option name="closed" value="true" />
-      <created>1717473979108</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1717473979108</updated>
-    </task>
-    <option name="localTasksCounter" value="5" />
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -215,7 +257,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/master" />
+                        <option value="origin/features/ui" />
                       </list>
                     </value>
                   </entry>
@@ -231,8 +273,7 @@
     <MESSAGE value="Initialize" />
     <MESSAGE value="Finish the basic functions of DataProcessor.java." />
     <MESSAGE value="Finished the basic structure of weighted functions." />
-    <MESSAGE value="Add UI.java" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add UI.java" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished the basic structure of weighted functions." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
