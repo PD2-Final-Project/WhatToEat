@@ -3,27 +3,29 @@ package com.whattoeat.ui;
 import javax.swing.*;
 import java.awt.*;
 
-public class Frame1 extends JPanel{
+public class Frame1 extends JPanel {
     public JTextField inputField;
-    public JComboBox<String> dropDown;
+    public JComboBox<String> dropdown;
     public JButton submitButton;
 
     public Frame1() {
         setLayout(null);
-
+        initUI();
     }
 
     private void initUI() {
-        JPanel titlePanel = createPanel(350, 250, 300, 50, new Color(173,216,230));
-        JLabel titleLable = createLabel("What to eat?", Color.WHITE);
-        titlePanel.add(titleLable);
+        // Title Panel
+        JPanel titlePanel1 = createPanel(350, 50, 300, 50, new Color(173, 216, 230));
+        JLabel titleLabel1 = createLabel("What to eat?", Color.WHITE);
+        titlePanel1.add(titleLabel1);
 
-        JPanel dropdownPanel = createPanel(350, 250, 300, 50, new Color(173, 216, 230));
-        dropDown = new JComboBox<>(new String[]{"Option 1", "Option 2", "Option 3"});
-        dropDown.setPreferredSize(new Dimension(250, 30));
+        // Dropdown Panel
+        JPanel dropdownPanel = createPanel(350, 250, 300, 85, new Color(173, 216, 230));
+        dropdown = new JComboBox<>(new String[]{"Option 1", "Option 2", "Option 3"});
+        dropdown.setPreferredSize(new Dimension(250, 30));
         JButton dropdownButton = new JButton("▼");
-        dropdownButton.setPreferredSize(new Dimension(50, 50));
-        dropdownPanel.add(dropDown);
+        dropdownButton.setPreferredSize(new Dimension(50, 40));
+        dropdownPanel.add(dropdown);
         dropdownPanel.add(dropdownButton);
 
         // Input Field
@@ -34,7 +36,8 @@ public class Frame1 extends JPanel{
         submitButton = new JButton("Click!");
         submitButton.setBounds(750, 450, 50, 50);
 
-        add(titlePanel);
+        // Add components to panel
+        add(titlePanel1);
         add(dropdownPanel);
         add(inputField);
         add(submitButton);

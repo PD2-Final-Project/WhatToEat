@@ -16,8 +16,8 @@ public class BaseFrame extends JFrame {
         cardPanel = new JPanel(cardLayout);
 
         // Create the pages
-        FirstPage firstPage = new FirstPage(this);
-        SecondPage secondPage = new SecondPage(this);
+        Frame1 firstPage = new Frame1();
+        Frame2 secondPage = new Frame2();
 
         // Add pages to CardLayout
         cardPanel.add(firstPage, "First Page");
