@@ -55,7 +55,7 @@ public class FrameController {
         firstPage.submitButton.addActionListener(e -> {
             CardLayout cl = (CardLayout) frame.getContentPane().getLayout();
             cl.show(frame.getContentPane(), "Second Page");
-            updateStoreData();  // Ensure the store data is updated when switching to the second page
+            updateStoreData();
         });
 
         secondPage.prevButton.addActionListener(e -> {
