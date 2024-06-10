@@ -9,8 +9,10 @@ public class Frame2 extends JPanel {
     public JLabel distanceData;
     public JLabel ratingData;
     public JLabel uriData;
+    public JLabel indexLabel;
     public JButton prevButton;
     public JButton nextButton;
+    public JButton backButton;
 
     public Frame2() {
         setLayout(null);
@@ -41,6 +43,10 @@ public class Frame2 extends JPanel {
         addStoreInfo(storeInfoPanel, "Google評分", ratingData = new JLabel("Rating Data"));
         addStoreInfo(storeInfoPanel, "Google 網址", uriData = new JLabel("URI Data"));
 
+        // Index Label
+        indexLabel = createLabel("0/0", Color.BLACK);
+        indexLabel.setBounds(450, 400, 100, 30);
+
         // Navigation Buttons
         prevButton = new JButton("←");
         prevButton.setBounds(200, 450, 100, 50);
@@ -48,12 +54,17 @@ public class Frame2 extends JPanel {
         nextButton = new JButton("→");
         nextButton.setBounds(700, 450, 100, 50);
 
+        backButton = new JButton("Back");
+        backButton.setBounds(450,450,100,50);
+
         // Add components to panel
+        add(indexLabel);
         add(titlePanel2);
         add(imagePanel);
         add(storeInfoPanel);
         add(prevButton);
         add(nextButton);
+        add(backButton);
     }
 
     private JPanel createPanel(int x, int y, int width, int height, Color bgColor) {
