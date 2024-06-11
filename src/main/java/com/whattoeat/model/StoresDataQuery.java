@@ -22,7 +22,7 @@ import java.io.IOException;
 public class StoresDataQuery {
     private final JSONObject searchResult;
     public final StoresData storesData;
-    private final static String path = setDataPath();
+    private final static String path = Env.getQueryResultsFilePath();
 
     /**
      * @param location The location where the search is made.
@@ -30,25 +30,24 @@ public class StoresDataQuery {
      * @param radius The radius desired to search.
      * */
     public StoresDataQuery(String location, String keyword, int radius) {
-        this.searchResult = this.getSearchResult(this.path, location, keyword, radius, Mood.NORMAL);
+        this.searchResult = this.getSearchResult(location, keyword, radius, Mood.NORMAL);
         this.storesData = new StoresData(this.searchResult.getJSONArray("storeContent"));
     }
     public StoresDataQuery(String location, String keyword, int radius, Mood mood) {
-        this.searchResult = this.getSearchResult(this.path, location, keyword, radius, mood);
+        this.searchResult = this.getSearchResult(location, keyword, radius, mood);
         this.storesData = new StoresData(this.searchResult.getJSONArray("storeContent"));
     }
 
     /**
-     * @param path The path of the file to store.
-     * <p> This will return the search results by given conditions </p>
-     * */
-    private JSONObject getSearchResult(String path, String location, String keyword, int radius, Mood mood) {
+     *
+     */
+    private JSONObject getSearchResult(String location, String keyword, int radius, Mood mood) {
         // If the data has been found inside the file, then return it;
         try {
-            File file = new File(path);
+            File file = new File(StoresDataQuery.path);
             if(!file.exists()) file.createNewFile();
-            if(JSONValidity.isValidJSONFile(path)) {
-                FileReader reader = new FileReader(path);
+            if(JSONValidity.isValidJSONFile(StoresDataQuery.path)) {
+                FileReader reader = new FileReader(StoresDataQuery.path);
                 JSONArray searchResults = new JSONArray(new JSONTokener(reader));
                 if (!searchResults.isEmpty()) {
                     for (int i = 0; i < searchResults.length(); i++) {
@@ -70,36 +69,15 @@ public class StoresDataQuery {
             e.printStackTrace();
         }
         // If the data hasn't been found then create it.
-        // TODO: This hard coded part should be changed.
-        Env env = new Env("src/env.json");
-        DataParser dataParser = new DataParser(env.getApiKey(), location);
+        DataParser dataParser = new DataParser(Env.getApiKey(), location);
         dataParser.setKeyword(keyword);
         dataParser.setRadius(radius);
         DataProcessor processor = new DataProcessor(dataParser.searchNearBy());
         processor.setMood(mood);
-        // TODO: hard coded
-        DataWriter dataWriter = new DataWriter(this.path, processor.getWeightedSearchResult());
+        DataWriter dataWriter = new DataWriter(path, processor.getWeightedSearchResult());
         return processor.getWeightedSearchResult();
     }
-    /**
-     * Set the path to store query results.
-     * @return String path
-     * */
-    public static String setDataPath() {
-        String osName = System.getProperty("os.name").toLowerCase();
-        String userHome  = System.getProperty("user.home");
-        String path = "";
-        if(osName.contains("win")) path = System.getenv("LOCALAPPDATA") + "\\WhatToEat\\queryResults.json";
-        else if(osName.contains("mac")) path = "~/Library/Application Support/WhatToEat/queryResults.json";
-        else path = "~/.WhatToEat/queryResults.json";
-        try {
-            File file = new File(path);
-            if(!file.exists()) file.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return path;
-    }
+
     /**
      * This class can get the stores' data.
      * <p>Usage:
