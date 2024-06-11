@@ -21,8 +21,8 @@ import java.io.IOException;
  * */
 public class StoresDataQuery {
     private final JSONObject searchResult;
-    private final String path = "src/test/weightedOutput.json";
     public final StoresData storesData;
+    private final static String path = Env.getQueryResultsFilePath();
 
     /**
      * @param location The location where the search is made.
@@ -30,25 +30,24 @@ public class StoresDataQuery {
      * @param radius The radius desired to search.
      * */
     public StoresDataQuery(String location, String keyword, int radius) {
-        this.searchResult = this.getSearchResult(this.path, location, keyword, radius, Mood.NORMAL);
+        this.searchResult = this.getSearchResult(location, keyword, radius, Mood.NORMAL);
         this.storesData = new StoresData(this.searchResult.getJSONArray("storeContent"));
     }
     public StoresDataQuery(String location, String keyword, int radius, Mood mood) {
-        this.searchResult = this.getSearchResult(this.path, location, keyword, radius, mood);
+        this.searchResult = this.getSearchResult(location, keyword, radius, mood);
         this.storesData = new StoresData(this.searchResult.getJSONArray("storeContent"));
     }
 
     /**
-     * @param path The path of the file to store.
-     * <p> This will return the search results by given conditions </p>
-     * */
-    private JSONObject getSearchResult(String path, String location, String keyword, int radius, Mood mood) {
+     *
+     */
+    private JSONObject getSearchResult(String location, String keyword, int radius, Mood mood) {
         // If the data has been found inside the file, then return it;
         try {
-            File file = new File(path);
+            File file = new File(StoresDataQuery.path);
             if(!file.exists()) file.createNewFile();
-            if(JSONValidity.isValidJSONFile(path)) {
-                FileReader reader = new FileReader(path);
+            if(JSONValidity.isValidJSONFile(StoresDataQuery.path)) {
+                FileReader reader = new FileReader(StoresDataQuery.path);
                 JSONArray searchResults = new JSONArray(new JSONTokener(reader));
                 if (!searchResults.isEmpty()) {
                     for (int i = 0; i < searchResults.length(); i++) {
@@ -56,7 +55,8 @@ public class StoresDataQuery {
                         if (searchResults.getJSONObject(i).getString("keyword").equals(keyword) &&
                                 searchResults.getJSONObject(i).getString("location").equals(location) &&
                                 searchResults.getJSONObject(i).getInt("radius") == radius &&
-                                timeGap < (1000*60*60*2)
+                                timeGap < (1000*60*60*2) &&
+                                searchResults.getJSONObject(i).getString("mood").equals(mood.toString())
                         ) {
                             reader.close();
                             return searchResults.getJSONObject(i);
@@ -69,15 +69,12 @@ public class StoresDataQuery {
             e.printStackTrace();
         }
         // If the data hasn't been found then create it.
-        // TODO: This hard coded part should be changed.
-        Env env = new Env("src/env.json");
-        DataParser dataParser = new DataParser(env.getApiKey(), location);
+        DataParser dataParser = new DataParser(Env.getApiKey(), location);
         dataParser.setKeyword(keyword);
         dataParser.setRadius(radius);
         DataProcessor processor = new DataProcessor(dataParser.searchNearBy());
         processor.setMood(mood);
-        // TODO: hard coded
-        DataWriter dataWriter = new DataWriter("src/test/weightedOutput.json", processor.getWeightedSearchResult());
+        DataWriter dataWriter = new DataWriter(path, processor.getWeightedSearchResult());
         return processor.getWeightedSearchResult();
     }
 
