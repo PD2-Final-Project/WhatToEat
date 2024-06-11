@@ -5,6 +5,8 @@ import com.whattoeat.model.StoresDataQuery;
 import com.whattoeat.model.api.DataParser;
 import com.whattoeat.ui.FrameController;
 
+import javax.swing.*;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -18,6 +20,7 @@ public class Main {
         if (runEnv.equals(Env.DEV)) {
 
             FrameController.initialize();
+
 
         } else if (runEnv.equals(Env.PRODUCT)) {
             // TODO:
