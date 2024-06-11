@@ -21,8 +21,8 @@ import java.io.IOException;
  * */
 public class StoresDataQuery {
     private final JSONObject searchResult;
-    private final String path = "src/test/weightedOutput.json";
     public final StoresData storesData;
+    private final static String path = setDataPath();
 
     /**
      * @param location The location where the search is made.
@@ -56,7 +56,8 @@ public class StoresDataQuery {
                         if (searchResults.getJSONObject(i).getString("keyword").equals(keyword) &&
                                 searchResults.getJSONObject(i).getString("location").equals(location) &&
                                 searchResults.getJSONObject(i).getInt("radius") == radius &&
-                                timeGap < (1000*60*60*2)
+                                timeGap < (1000*60*60*2) &&
+                                searchResults.getJSONObject(i).getString("mood").equals(mood.toString())
                         ) {
                             reader.close();
                             return searchResults.getJSONObject(i);
@@ -77,10 +78,28 @@ public class StoresDataQuery {
         DataProcessor processor = new DataProcessor(dataParser.searchNearBy());
         processor.setMood(mood);
         // TODO: hard coded
-        DataWriter dataWriter = new DataWriter("src/test/weightedOutput.json", processor.getWeightedSearchResult());
+        DataWriter dataWriter = new DataWriter(this.path, processor.getWeightedSearchResult());
         return processor.getWeightedSearchResult();
     }
-
+    /**
+     * Set the path to store query results.
+     * @return String path
+     * */
+    public static String setDataPath() {
+        String osName = System.getProperty("os.name").toLowerCase();
+        String userHome  = System.getProperty("user.home");
+        String path = "";
+        if(osName.contains("win")) path = System.getenv("LOCALAPPDATA") + "\\WhatToEat\\queryResults.json";
+        else if(osName.contains("mac")) path = "~/Library/Application Support/WhatToEat/queryResults.json";
+        else path = "~/.WhatToEat/queryResults.json";
+        try {
+            File file = new File(path);
+            if(!file.exists()) file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return path;
+    }
     /**
      * This class can get the stores' data.
      * <p>Usage:
