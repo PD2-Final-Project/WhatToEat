@@ -90,7 +90,7 @@ public class FrameController {
         if (currentIndex >= 0 && currentIndex < totalStores) {
             secondPage.storeNameData.setText(storeNames[currentIndex]);
             secondPage.priceData.setText(String.valueOf(storePrice[currentIndex]));
-            secondPage.distanceData.setText(String.valueOf(storeDistance[currentIndex]) + " meters");
+            secondPage.distanceData.setText(String.valueOf(storeDistance[currentIndex]));
             secondPage.ratingData.setText(String.valueOf(storeRating[currentIndex]));
             secondPage.uriData.setText(storeUrls[currentIndex]);
             secondPage.indexLabel.setText((currentIndex + 1) + "/" + totalStores);
