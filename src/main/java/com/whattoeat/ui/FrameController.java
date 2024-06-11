@@ -1,9 +1,14 @@
 package com.whattoeat.ui;
 
 import com.whattoeat.model.StoresDataQuery;
+import com.whattoeat.model.processor.Mood;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.Desktop;
+import java.net.URI;
 
 public class FrameController {
 
@@ -31,6 +36,7 @@ public class FrameController {
         int radius = 1000;
         String keyWord = "restaurant";
         String location = "成大";
+        Mood mood = Mood.GOOD;
         StoresDataQuery storesDataQuery = new StoresDataQuery(location, keyWord, radius);
         storeNames = storesDataQuery.storesData.getNames();
         storePrice = storesDataQuery.storesData.getPriceLevels();
@@ -51,9 +57,19 @@ public class FrameController {
 
         frame.add(firstPage, "First Page");
         frame.add(secondPage, "Second Page");
+//        private class updateDateFromFrame1(){
+//            radius = 1000;
+//            keyWord = "restaurant";
+//            location = "成大";
+//            mood =
+//        }
 
         firstPage.submitButton.addActionListener(e -> {
             CardLayout cl = (CardLayout) frame.getContentPane().getLayout();
+//            updateDateFromFrame1()
+
+
+
             cl.show(frame.getContentPane(), "Second Page");
             updateStoreData();
         });
@@ -91,8 +107,9 @@ public class FrameController {
             secondPage.storeNameData.setText(storeNames[currentIndex]);
             secondPage.priceData.setText(String.valueOf(storePrice[currentIndex]));
             secondPage.distanceData.setText(String.valueOf(storeDistance[currentIndex]));
-            secondPage.ratingData.setText(String.valueOf(storeRating[currentIndex]));
+            secondPage.ratingData.setText(String.format("%.1f", storeRating[currentIndex]));
             secondPage.uriData.setText(storeUrls[currentIndex]);
+            //secondPage.uriData = new HyperlinkLabel(storeUrls[currentIndex]);
             secondPage.indexLabel.setText((currentIndex + 1) + "/" + totalStores);
 
             System.out.println("Updating store data for index: " + currentIndex);
@@ -100,4 +117,6 @@ public class FrameController {
             System.out.println("Invalid index: " + currentIndex);
         }
     }
+
+
 }
