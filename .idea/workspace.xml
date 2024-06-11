@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8410b76b-ebd5-4933-b774-8ef6d339aad3" name="Changes" comment="Finished the basic structure of weighted functions.">
+    <list default="true" id="8410b76b-ebd5-4933-b774-8ef6d339aad3" name="Changes" comment="delete BaseFrame.java and UI.java">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/whattoeat/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/whattoeat/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/whattoeat/ui/Frame1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/whattoeat/ui/Frame1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/whattoeat/ui/FrameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/whattoeat/ui/FrameController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -270,7 +271,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717830017053</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="delete BaseFrame.java and UI.java">
+      <option name="closed" value="true" />
+      <created>1718075195589</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1718075195589</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -303,7 +312,8 @@
     <MESSAGE value="Initialize" />
     <MESSAGE value="Finish the basic functions of DataProcessor.java." />
     <MESSAGE value="Finished the basic structure of weighted functions." />
-    <option name="LAST_COMMIT_MESSAGE" value="Finished the basic structure of weighted functions." />
+    <MESSAGE value="delete BaseFrame.java and UI.java" />
+    <option name="LAST_COMMIT_MESSAGE" value="delete BaseFrame.java and UI.java" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

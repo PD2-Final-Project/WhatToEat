@@ -19,27 +19,43 @@ public class Frame1 extends JPanel {
         JLabel titleLabel1 = createLabel("What to eat?", Color.WHITE);
         titlePanel1.add(titleLabel1);
 
-        // Dropdown Panel
-        JPanel dropdownPanel = createPanel(350, 250, 300, 85, new Color(173, 216, 230));
-        dropdown = new JComboBox<>(new String[]{"Option 1", "Option 2", "Option 3"});
-        dropdown.setPreferredSize(new Dimension(250, 30));
-        JButton dropdownButton = new JButton("▼");
-        dropdownButton.setPreferredSize(new Dimension(50, 40));
-        dropdownPanel.add(dropdown);
-        dropdownPanel.add(dropdownButton);
+//        // Dropdown Panel
+//        JPanel dropdownPanel = createPanel(350, 250, 300, 85, new Color(173, 216, 230));
+//        dropdown = new JComboBox<>(new String[]{"NORMAL", "GOOD", "BAD"});
+//        dropdown.setPreferredSize(new Dimension(250, 30));
+//        JButton dropdownButton = new JButton("▼");
+//        dropdownButton.setPreferredSize(new Dimension(50, 40));
+//        dropdownPanel.add(dropdown);
+//        dropdownPanel.add(dropdownButton);
 
-        // Input Field
-        inputField = new JTextField();
-        inputField.setBounds(250, 450, 500, 50);
+        //try
+        JPanel infoPanel = new JPanel();
+        infoPanel.setLayout(new GridLayout(4, 2, 10, 10));  // 4 rows, 2 columns, with gaps
+        infoPanel.setBounds(250, 150, 500, 300);
+        infoPanel.setBackground(new Color(173, 216, 230));
+        // Adding labels and fields for location, radius, and keyword
+        infoPanel.add(new JLabel("所在地點"));
+        infoPanel.add(new JTextField(15));
+
+        infoPanel.add(new JLabel("半徑"));
+        infoPanel.add(new JTextField(15));
+
+        infoPanel.add(new JLabel("keyword"));
+        infoPanel.add(new JTextField(15));
+
+        // Adding label and dropdown for mood
+        infoPanel.add(new JLabel("心情"));
+        JComboBox<String> moodDropdown = new JComboBox<>(new String[]{"NORMAL", "GOOD", "BAD"});
+        moodDropdown.setPreferredSize(new Dimension(250, 30));
+        infoPanel.add(moodDropdown);
 
         // Submit Button
         submitButton = new JButton("Click!");
-        submitButton.setBounds(750, 450, 50, 50);
+        submitButton.setBounds(450, 450, 100, 50);
 
         // Add components to panel
+        add(infoPanel);  // Make sure this is placed correctly within the layout
         add(titlePanel1);
-        add(dropdownPanel);
-        add(inputField);
         add(submitButton);
     }
 
