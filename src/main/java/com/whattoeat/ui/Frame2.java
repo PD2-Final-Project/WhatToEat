@@ -41,7 +41,7 @@ public class Frame2 extends JPanel {
         addStoreInfo(storeInfoPanel, "價格", priceData = new JLabel("Average Price Data"));
         addStoreInfo(storeInfoPanel, "距離", distanceData = new JLabel("storeDistance"));
         addStoreInfo(storeInfoPanel, "Google評分", ratingData = new JLabel("Rating Data"));
-        addStoreInfo(storeInfoPanel, "Google 網址", uriData = new JLabel("URI Data"));
+        addStoreInfo(storeInfoPanel, "Google 網址", uriData = new HyperlinkLabel("URI"));
 
         // Index Label
         indexLabel = createLabel("0/0", Color.BLACK);
@@ -90,4 +90,5 @@ public class Frame2 extends JPanel {
         parentPanel.add(labelPanel);
         parentPanel.add(dataPanel);
     }
+
 }
