@@ -1,6 +1,7 @@
 package com.whattoeat.model.processor;
 
 import com.google.maps.model.PriceLevel;
+import com.whattoeat.Env;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -110,6 +111,20 @@ public class DataProcessor {
             this.priceLevelWeight *= 0.7;
             this.ratingWeight *= 1.3;
             this.distanceWeight *= 1.4;
+        }
+    }
+
+    public void setPhoto(int photoWidth, int photoHeight) {
+        JSONArray storeContent = this.searchResult.getJSONArray("storeContent");
+        for(int i = 0 ; i < storeContent.length() ; i++) {
+            JSONArray photos = storeContent.getJSONObject(i).getJSONObject("details").getJSONArray("photos");
+            for(int j = 0 ; j < photos.length() ; j++) {
+                String photoID = photos.getString(j);
+                String photoURL = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=" +
+                        photoWidth + "&maxheight=" + photoHeight + "&photo_reference=" + photoID +
+                        "&key=" + Env.getApiKey();
+                photos.put(j, photoURL);
+            }
         }
     }
 }
