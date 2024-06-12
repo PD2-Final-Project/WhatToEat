@@ -4,21 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8410b76b-ebd5-4933-b774-8ef6d339aad3" name="Changes" comment="I made a HyperlinkLabel.java, which extends JLabel,especially override setText method, to make hyperlink">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_10_11_24__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_10_11_24__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_10_11_24__Changes_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_10_11_24__Changes_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_8_12_38__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_8_12_38__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_8_12_38__Changes_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_8_12_38__Changes_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_8_12_52__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_8_12_52__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_8_3_09__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_8_3_09__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/whattoeat/Env.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/whattoeat/Env.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/whattoeat/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/whattoeat/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/whattoeat/model/StoresDataQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/whattoeat/model/StoresDataQuery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/whattoeat/model/processor/DataProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/whattoeat/model/processor/DataProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/whattoeat/ui/Frame1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/whattoeat/ui/Frame1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/whattoeat/ui/FrameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/whattoeat/ui/FrameController.java" afterDir="false" />
-    </list>
+    <list default="true" id="8410b76b-ebd5-4933-b774-8ef6d339aad3" name="Changes" comment="I made a HyperlinkLabel.java, which extends JLabel,especially override setText method, to make hyperlink" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
