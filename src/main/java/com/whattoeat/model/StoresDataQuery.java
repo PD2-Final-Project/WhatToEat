@@ -28,20 +28,17 @@ public class StoresDataQuery {
      * @param location The location where the search is made.
      * @param keyword The keyword to limit the search results.
      * @param radius The radius desired to search.
+     * @param mood The mood of users
      * */
-    public StoresDataQuery(String location, String keyword, int radius) {
-        this.searchResult = this.getSearchResult(location, keyword, radius, Mood.NORMAL);
-        this.storesData = new StoresData(this.searchResult.getJSONArray("storeContent"));
-    }
-    public StoresDataQuery(String location, String keyword, int radius, Mood mood) {
-        this.searchResult = this.getSearchResult(location, keyword, radius, mood);
+    public StoresDataQuery(String location, String keyword, int radius, Mood mood, int photoWidth, int photoHeight) {
+        this.searchResult = this.getSearchResult(location, keyword, radius, mood, photoWidth, photoHeight);
         this.storesData = new StoresData(this.searchResult.getJSONArray("storeContent"));
     }
 
     /**
      *
      */
-    private JSONObject getSearchResult(String location, String keyword, int radius, Mood mood) {
+    private JSONObject getSearchResult(String location, String keyword, int radius, Mood mood, int photoWidth, int photoHeight) {
         // If the data has been found inside the file, then return it;
         try {
             File file = new File(StoresDataQuery.path);
@@ -74,6 +71,7 @@ public class StoresDataQuery {
         dataParser.setRadius(radius);
         DataProcessor processor = new DataProcessor(dataParser.searchNearBy());
         processor.setMood(mood);
+        processor.setPhoto(photoWidth, photoHeight);
         DataWriter dataWriter = new DataWriter(path, processor.getWeightedSearchResult());
         return processor.getWeightedSearchResult();
     }
