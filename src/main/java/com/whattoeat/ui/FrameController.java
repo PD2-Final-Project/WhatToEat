@@ -45,21 +45,6 @@ public class FrameController {
         frame.add(firstPage, "First Page");
         frame.add(secondPage, "Second Page");
 
-        int radius = 100;
-        String keyWord = "restaurant";
-        String location = "成大";
-        Mood mood = Mood.NORMAL;
-        StoresDataQuery storesDataQuery = new StoresDataQuery(location, keyWord, radius,mood);
-        storeNames = storesDataQuery.storesData.getNames();
-        storePrice = storesDataQuery.storesData.getPriceLevels();
-        storeDistance = storesDataQuery.storesData.getDistances();
-        storeRating = storesDataQuery.storesData.getRatings();
-        storeUrls = storesDataQuery.storesData.getUrls();
-        storeAddress = storesDataQuery.storesData.getAddresses();
-        totalStores = storeNames.length;  // Initialize totalStores here
-
-
-
         firstPage.submitButton.addActionListener(e -> {
             firstPage.updateDataFromFrame1();
             System.out.println("arrive");
