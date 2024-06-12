@@ -6,10 +6,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Frame1 extends JPanel {
-    private final JTextField locationField = new JTextField(15);
-    private final JTextField radiusField = new JTextField(15);
-    private final JTextField keyWordField = new JTextField(15);
-    private final JComboBox<Mood> moodDropdown = new JComboBox<>(Mood.values());
+    public JTextField locationField = new JTextField(15);
+    public JTextField radiusField = new JTextField(15);
+    public JTextField keyWordField = new JTextField(15);
+    public JComboBox<Mood> moodDropdown = new JComboBox<>(Mood.values());
     JButton submitButton = new JButton("Click");
 
     public Frame1() {

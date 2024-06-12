@@ -20,7 +20,6 @@ public class DataProcessor {
     private double priceLevelWeight = 7.50;
     private double distanceWeight = 7.69;
     private double ratingWeight = 6.15;
-    private Mood mood;
 
     /**
      * @param searchResult is the JSONArray of the search results.
@@ -96,7 +95,6 @@ public class DataProcessor {
         weightedSearchResult.put("location", searchResult.getString("location"));
         weightedSearchResult.put("keyword", searchResult.getString("keyword"));
         weightedSearchResult.put("radius", searchResult.getString("radius"));
-        weightedSearchResult.put("mood", this.mood.toString());
         // To process each stores in the storeContent array and store it to weightedSearchResult
         JSONArray storeContent = searchResult.getJSONArray("storeContent");
         weightedSearchResult.put("storeContent", weightedSearchResultCalculator(storeContent));
@@ -104,7 +102,6 @@ public class DataProcessor {
     }
 
     public void setMood(Mood mood) {
-        this.mood = mood;
         if(mood == Mood.GOOD){
             this.priceLevelWeight *= 0.3;
             this.ratingWeight *= 2;

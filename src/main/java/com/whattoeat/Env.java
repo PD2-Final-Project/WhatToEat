@@ -1,51 +1,72 @@
 package com.whattoeat;
 
-import java.io.File;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import java.io.FileReader;
 import java.io.IOException;
 
 public class Env {
-    private static final String ENV = System.getenv("ENV");
-    private static final String API_KEY = System.getenv("API_KEY");
-    private static final String QUERY_RESULTS_FILE_PATH = setQueryResultsFilePath();
-
-    public static String getApiKey() {
-        return API_KEY;
-    }
-
-    public static String getQueryResultsFilePath() {
-        return QUERY_RESULTS_FILE_PATH;
-    }
-
-    public static String getENV() {
-        return ENV;
-    }
-
-    private static String setQueryResultsFilePath() {
-        String osName = System.getProperty("os.name").toLowerCase();
-        String userHome = System.getProperty("user.home");
-        String path;
-
-        if (osName.contains("win")) {
-            path = System.getenv("LOCALAPPDATA") + "\\WhatToEat\\queryResults.json";
-        } else if (osName.contains("mac")) {
-            path = userHome + "/Library/Application Support/WhatToEat/queryResults.json";
-        } else {
-            path = userHome + "~/.WhatToEat/queryResults.json";
+    public static final String DEV = "DEV";
+    public static final String PRODUCT = "PRODUCT";
+    private String runEnv;
+    private String apiKey;
+    public Env(String envFilePath) {
+        setRunEnv(envFilePath);
+        if (runEnv.equals(DEV)) {
+            setApiKey(envFilePath);
+        } else if (runEnv.equals(PRODUCT)) {
+            setApiKey();
         }
+    }
 
-        File file = new File(path);
-        File parentDir = file.getParentFile();
-        if (!parentDir.exists()) {
-            parentDir.mkdirs();
+    private void setRunEnv(String envFilePath) {
+        if (envFilePath == null) {
+            System.err.println("envFilePath cannot be null!!!");
+            return;
+        } else if (envFilePath.isEmpty()) {
+            System.err.println("string length of the envFilePath is 0!!!");
+            return;
         }
-
         try {
-            if (!file.exists()) {
-                file.createNewFile();
-            }
+            FileReader reader = new FileReader(envFilePath);
+            JsonParser jsonParser = new JsonParser();
+            JsonObject json = jsonParser.parse(reader).getAsJsonObject();
+            runEnv = json.get("env").getAsString();
+            reader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return file.getAbsolutePath();
+    }
+
+    private void setApiKey(String envFilePath) {
+        if (envFilePath == null) {
+            System.err.println("envFilePath cannot be null!!!");
+            return;
+        } else if (envFilePath.isEmpty()) {
+            System.err.println("string length of the envFilePath is 0!!!");
+            return;
+        }
+        try {
+            FileReader reader = new FileReader(envFilePath);
+            JsonParser jsonParser = new JsonParser();
+            JsonObject json = jsonParser.parse(reader).getAsJsonObject();
+            apiKey = json.get("key").getAsString();
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setApiKey() {
+        apiKey = "";
+    }
+
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    public String getRunEnv() {
+        return runEnv;
     }
 }

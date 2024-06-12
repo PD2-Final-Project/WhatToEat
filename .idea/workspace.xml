@@ -4,8 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8410b76b-ebd5-4933-b774-8ef6d339aad3" name="Changes" comment="finish frame1, and write update class in FrameController.Also an updateDataFromFrame1 method that is used to store the insert of frame1.&#10;I changed the JComboBox&lt;String&gt; into JComboBox&lt;Mood&gt; to make it work.However the initialization of FrameController needs further testing.">
+    <list default="true" id="8410b76b-ebd5-4933-b774-8ef6d339aad3" name="Changes" comment="I made a HyperlinkLabel.java, which extends JLabel,especially override setText method, to make hyperlink">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_10_11_24__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_10_11_24__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_10_11_24__Changes_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_10_11_24__Changes_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_8_12_38__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_8_12_38__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_8_12_38__Changes_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_8_12_38__Changes_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_8_12_52__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_8_12_52__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_8_3_09__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_8_3_09__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/whattoeat/Env.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/whattoeat/Env.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/whattoeat/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/whattoeat/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/whattoeat/model/StoresDataQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/whattoeat/model/StoresDataQuery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/whattoeat/model/processor/DataProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/whattoeat/model/processor/DataProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/whattoeat/ui/Frame1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/whattoeat/ui/Frame1.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/whattoeat/ui/FrameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/whattoeat/ui/FrameController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -65,6 +76,7 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -94,36 +106,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.FrameController.executor": "Run",
-    "Application.Main.executor": "Run",
-    "Application.TestApi.executor": "Run",
-    "Application.UI.executor": "Run",
-    "Application.UI_alpha1.executor": "Run",
-    "Gradle.Build WhatToEat.executor": "Run",
-    "Gradle.Download Sources.executor": "Run",
-    "Gradle.WhatToEat [:Main.main()].executor": "Run",
-    "Gradle.WhatToEat [:TestApi.main()].executor": "Run",
-    "Gradle.WhatToEat [assemble].executor": "Run",
-    "Kotlin script (Beta).build.gradle.kts.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "features/ui",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "inlay.hints",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.FrameController.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TestApi.executor&quot;: &quot;Run&quot;,
+    &quot;Application.UI.executor&quot;: &quot;Run&quot;,
+    &quot;Application.UI_alpha1.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build WhatToEat.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.WhatToEat [:Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.WhatToEat [:TestApi.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.WhatToEat [assemble].executor&quot;: &quot;Run&quot;,
+    &quot;Kotlin script (Beta).build.gradle.kts.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;features/ui&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="F:\ncku\pd2\WhatToEat\src" />
@@ -294,15 +306,7 @@
       <option name="project" value="LOCAL" />
       <updated>1718132780780</updated>
     </task>
-    <task id="LOCAL-00011" summary="finish frame1, and write update class in FrameController.Also an updateDataFromFrame1 method that is used to store the insert of frame1.&#10;I changed the JComboBox&lt;String&gt; into JComboBox&lt;Mood&gt; to make it work.However the initialization of FrameController needs further testing.">
-      <option name="closed" value="true" />
-      <created>1718197368968</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1718197368968</updated>
-    </task>
-    <option name="localTasksCounter" value="12" />
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -338,8 +342,7 @@
     <MESSAGE value="delete BaseFrame.java and UI.java" />
     <MESSAGE value="change frame 1,and delete frame2 &quot;meters&quot;" />
     <MESSAGE value="I made a HyperlinkLabel.java, which extends JLabel,especially override setText method, to make hyperlink" />
-    <MESSAGE value="finish frame1, and write update class in FrameController.Also an updateDataFromFrame1 method that is used to store the insert of frame1.&#10;I changed the JComboBox&lt;String&gt; into JComboBox&lt;Mood&gt; to make it work.However the initialization of FrameController needs further testing." />
-    <option name="LAST_COMMIT_MESSAGE" value="finish frame1, and write update class in FrameController.Also an updateDataFromFrame1 method that is used to store the insert of frame1.&#10;I changed the JComboBox&lt;String&gt; into JComboBox&lt;Mood&gt; to make it work.However the initialization of FrameController needs further testing." />
+    <option name="LAST_COMMIT_MESSAGE" value="I made a HyperlinkLabel.java, which extends JLabel,especially override setText method, to make hyperlink" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

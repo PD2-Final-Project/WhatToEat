@@ -22,11 +22,15 @@ public class FrameController {
     private static String[] storeAddress;
 
     private static Frame2 secondPage;
-
     public static JFrame frame;
 
+    private static String location = "成大";
+    private static String KeyWord = "restaurant";
+    private static int radius = 0;
+    private static Mood selectedMood;
+
     public static void initialize() {
-        // Set Look and Feel
+
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
@@ -46,10 +50,12 @@ public class FrameController {
         frame.add(secondPage, "Second Page");
 
         firstPage.submitButton.addActionListener(e -> {
-            firstPage.updateDataFromFrame1();
-            System.out.println("arrive");
+            getParametric(firstPage);
+            update(location,KeyWord,radius,selectedMood);
+
             CardLayout cl = (CardLayout) frame.getContentPane().getLayout();
             cl.show(frame.getContentPane(), "Second Page");
+            updateStoreData();
         });
 
         secondPage.prevButton.addActionListener(e -> {
@@ -73,6 +79,7 @@ public class FrameController {
         });
 
         secondPage.backButton.addActionListener(e -> {
+            currentIndex = 0;
             CardLayout cl = (CardLayout) frame.getContentPane().getLayout();
             cl.show(frame.getContentPane(), "First Page");
         });
@@ -108,5 +115,30 @@ public class FrameController {
         storeAddress = storesDataQuery.storesData.getAddresses();
         totalStores = storeNames.length;  // Initialize totalStores here
     }
+
+    public static void getParametric(Frame1 firstPage) {
+
+        try {
+            radius = Integer.parseInt(firstPage.radiusField.getText().trim());
+            System.out.println("半徑: " + radius);
+        } catch (NumberFormatException e) {
+            System.out.println("輸入的半徑不是有效的整數");
+        }
+
+        KeyWord = firstPage.keyWordField.getText().trim();
+        System.out.println("關鍵詞: " + KeyWord);
+
+        location = firstPage.locationField.getText().trim();
+        System.out.println("位置: " + location);
+
+        selectedMood = (Mood) firstPage.moodDropdown.getSelectedItem();
+        if (selectedMood != null) {
+            System.out.println("選擇的心情: " + selectedMood);
+        } else {
+            System.out.println("未選擇心情");
+        }
+    }
+
+
 
 }
