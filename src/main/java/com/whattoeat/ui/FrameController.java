@@ -33,19 +33,6 @@ public class FrameController {
             e.printStackTrace();
         }
 
-        int radius = 1000;
-        String keyWord = "restaurant";
-        String location = "成大";
-        Mood mood = Mood.GOOD;
-        StoresDataQuery storesDataQuery = new StoresDataQuery(location, keyWord, radius);
-        storeNames = storesDataQuery.storesData.getNames();
-        storePrice = storesDataQuery.storesData.getPriceLevels();
-        storeDistance = storesDataQuery.storesData.getDistances();
-        storeRating = storesDataQuery.storesData.getRatings();
-        storeUrls = storesDataQuery.storesData.getUrls();
-        storeAddress = storesDataQuery.storesData.getAddresses();
-
-        totalStores = storeNames.length;  // Initialize totalStores here
 
         frame = new JFrame("What to Eat?");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -57,21 +44,27 @@ public class FrameController {
 
         frame.add(firstPage, "First Page");
         frame.add(secondPage, "Second Page");
-//        private class updateDateFromFrame1(){
-//            radius = 1000;
-//            keyWord = "restaurant";
-//            location = "成大";
-//            mood =
-//        }
+
+        int radius = 100;
+        String keyWord = "restaurant";
+        String location = "成大";
+        Mood mood = Mood.NORMAL;
+        StoresDataQuery storesDataQuery = new StoresDataQuery(location, keyWord, radius,mood);
+        storeNames = storesDataQuery.storesData.getNames();
+        storePrice = storesDataQuery.storesData.getPriceLevels();
+        storeDistance = storesDataQuery.storesData.getDistances();
+        storeRating = storesDataQuery.storesData.getRatings();
+        storeUrls = storesDataQuery.storesData.getUrls();
+        storeAddress = storesDataQuery.storesData.getAddresses();
+        totalStores = storeNames.length;  // Initialize totalStores here
+
+
 
         firstPage.submitButton.addActionListener(e -> {
+            firstPage.updateDataFromFrame1();
+            System.out.println("arrive");
             CardLayout cl = (CardLayout) frame.getContentPane().getLayout();
-//            updateDateFromFrame1()
-
-
-
             cl.show(frame.getContentPane(), "Second Page");
-            updateStoreData();
         });
 
         secondPage.prevButton.addActionListener(e -> {
@@ -118,5 +111,17 @@ public class FrameController {
         }
     }
 
+
+    public static void update(String location, String keyWord, int radius, Mood mood) {
+        System.out.println("in update function");
+        StoresDataQuery storesDataQuery = new StoresDataQuery(location, keyWord, radius,mood);
+        storeNames = storesDataQuery.storesData.getNames();
+        storePrice = storesDataQuery.storesData.getPriceLevels();
+        storeDistance = storesDataQuery.storesData.getDistances();
+        storeRating = storesDataQuery.storesData.getRatings();
+        storeUrls = storesDataQuery.storesData.getUrls();
+        storeAddress = storesDataQuery.storesData.getAddresses();
+        totalStores = storeNames.length;  // Initialize totalStores here
+    }
 
 }
