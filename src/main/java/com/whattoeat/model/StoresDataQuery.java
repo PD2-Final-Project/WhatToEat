@@ -22,7 +22,7 @@ import java.io.IOException;
 public class StoresDataQuery {
     private final JSONObject searchResult;
     public final StoresData storesData;
-    private final static String path = Env.getQueryResultsFilePath();
+    private final static String path = Env.getDataStorageFolderPath() + "queryResults.json";
 
     /**
      * @param location The location where the search is made.
