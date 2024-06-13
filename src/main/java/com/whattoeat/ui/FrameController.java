@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.Desktop;
 import java.net.URI;
 
 public class FrameController {
@@ -20,6 +19,7 @@ public class FrameController {
     private static double[] storeRating;
     private static String[] storeUrls;
     private static String[] storeAddress;
+    private static String[][] photoUrls;
 
     private static Frame2 secondPage;
     public static JFrame frame;
@@ -51,7 +51,7 @@ public class FrameController {
 
         firstPage.submitButton.addActionListener(e -> {
             getParametric(firstPage);
-            update(location,KeyWord,radius,selectedMood);
+            update(location, KeyWord, radius, selectedMood);
 
             CardLayout cl = (CardLayout) frame.getContentPane().getLayout();
             cl.show(frame.getContentPane(), "Second Page");
@@ -84,6 +84,20 @@ public class FrameController {
             cl.show(frame.getContentPane(), "First Page");
         });
 
+        // Add mouse listener to open URLs in a browser
+        secondPage.uriData.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                    try {
+                        Desktop.getDesktop().browse(new URI(storeUrls[currentIndex]));
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        });
+
         frame.setVisible(true);
     }
 
@@ -93,9 +107,13 @@ public class FrameController {
             secondPage.priceData.setText(String.valueOf(storePrice[currentIndex]));
             secondPage.distanceData.setText(String.valueOf(storeDistance[currentIndex]));
             secondPage.ratingData.setText(String.format("%.1f", storeRating[currentIndex]));
-            secondPage.uriData.setText(storeUrls[currentIndex]);
-            //secondPage.uriData = new HyperlinkLabel(storeUrls[currentIndex]);
+            secondPage.uriData.setText("<html><a href=''>" + storeUrls[currentIndex] + "</a></html>");
             secondPage.indexLabel.setText((currentIndex + 1) + "/" + totalStores);
+
+            // Load and display the image from URL
+            if (photoUrls[currentIndex] != null && photoUrls[currentIndex].length > 0) {
+                secondPage.setImageFromUrl(photoUrls[currentIndex][0]);
+            }
 
             System.out.println("Updating store data for index: " + currentIndex);
         } else {
@@ -103,17 +121,18 @@ public class FrameController {
         }
     }
 
-
     public static void update(String location, String keyWord, int radius, Mood mood) {
         System.out.println("in update function");
-        StoresDataQuery storesDataQuery = new StoresDataQuery(location, keyWord, radius,mood, 300, 400);
+        StoresDataQuery storesDataQuery = new StoresDataQuery(location, keyWord, radius, mood, 350, 350);
         storeNames = storesDataQuery.storesData.getNames();
         storePrice = storesDataQuery.storesData.getPriceLevels();
         storeDistance = storesDataQuery.storesData.getDistances();
         storeRating = storesDataQuery.storesData.getRatings();
         storeUrls = storesDataQuery.storesData.getUrls();
         storeAddress = storesDataQuery.storesData.getAddresses();
-        totalStores = storeNames.length;  // Initialize totalStores here
+        photoUrls = storesDataQuery.storesData.getPhotosURLs();
+        totalStores = storeNames.length;
+
     }
 
     public static void getParametric(Frame1 firstPage) {
@@ -138,7 +157,4 @@ public class FrameController {
             System.out.println("未選擇心情");
         }
     }
-
-
-
 }

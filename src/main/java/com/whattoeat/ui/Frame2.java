@@ -2,6 +2,9 @@ package com.whattoeat.ui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
+import javax.imageio.ImageIO;
+import java.io.IOException;
 
 public class Frame2 extends JPanel {
     public JLabel storeNameData;
@@ -13,6 +16,7 @@ public class Frame2 extends JPanel {
     public JButton prevButton;
     public JButton nextButton;
     public JButton backButton;
+    private JLabel imageLabel;
 
     public Frame2() {
         setLayout(null);
@@ -26,8 +30,9 @@ public class Frame2 extends JPanel {
         titlePanel2.add(titleLabel2);
 
         // Image Panel
-        JPanel imagePanel = createPanel(600, 100, 300, 300, new Color(173, 216, 230));
-        JLabel imageLabel = createLabel("Google Map Image", Color.WHITE);
+        JPanel imagePanel = createPanel(600, 100, 350, 350, new Color(173, 216, 230));
+        imageLabel = new JLabel("Google Map Image", SwingConstants.CENTER);
+        imageLabel.setForeground(Color.WHITE);
         imagePanel.add(imageLabel);
 
         // Store Information Panel
@@ -55,7 +60,7 @@ public class Frame2 extends JPanel {
         nextButton.setBounds(700, 450, 100, 50);
 
         backButton = new JButton("Back");
-        backButton.setBounds(450,450,100,50);
+        backButton.setBounds(450, 450, 100, 50);
 
         // Add components to panel
         add(indexLabel);
@@ -91,4 +96,15 @@ public class Frame2 extends JPanel {
         parentPanel.add(dataPanel);
     }
 
+    public void setImageFromUrl(String imageUrl) {
+        try {
+            URL url = new URL(imageUrl);
+            Image image = ImageIO.read(url);
+            imageLabel.setIcon(new ImageIcon(image));
+            imageLabel.setText("");
+        } catch (IOException e) {
+            e.printStackTrace();
+            imageLabel.setText("Image Load Failed");
+        }
+    }
 }
