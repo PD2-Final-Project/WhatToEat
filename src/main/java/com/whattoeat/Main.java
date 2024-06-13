@@ -11,19 +11,13 @@ import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
-        String apiKey;
-        String runEnv;
 
-        Env env = new Env("src/env.json");
-        apiKey = env.getApiKey();
-        runEnv = env.getRunEnv();
-
-        if (runEnv.equals(Env.DEV)) {
+        if (Env.getENV().equals("DEV")) {
 
             FrameController.initialize();
 
 
-        } else if (runEnv.equals(Env.PRODUCT)) {
+        } else if (Env.getENV().equals("PRO")) {
             // TODO:
         }
     }
