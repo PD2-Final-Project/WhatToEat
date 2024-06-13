@@ -4,8 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8410b76b-ebd5-4933-b774-8ef6d339aad3" name="Changes" comment="hyperlink display 點擊這裏">
+    <list default="true" id="8410b76b-ebd5-4933-b774-8ef6d339aad3" name="Changes" comment="Finished the basic structure of weighted functions.">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/log4j2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_10_11_24__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_10_11_24__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_10_11_24__Changes_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_10_11_24__Changes_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_13_10_34__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_13_10_34__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_15_9_30__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_15_9_30__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_6__06_45__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_6_下午_06_45_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_8_12_38__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_8_12_38__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_8_12_38__Changes_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_8_12_52__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_8_3_09__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_8_下午12_38_[Changes]1/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_8_下午12_52_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_8_下午3_09_[Changes]/shelved.patch" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/whattoeat/Env.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/whattoeat/Env.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/whattoeat/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/whattoeat/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/whattoeat/model/StoresDataQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/whattoeat/model/StoresDataQuery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/whattoeat/model/processor/DataWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/whattoeat/model/processor/DataWriter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,28 +42,7 @@
         <task path="$PROJECT_DIR$">
           <activation />
         </task>
-        <projects_view>
-          <tree_state>
-            <expand>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="WhatToEat" type="f1a62948:ProjectNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="WhatToEat" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="WhatToEat" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
-              </path>
-            </expand>
-            <select />
-          </tree_state>
-        </projects_view>
+        <projects_view />
       </state>
     </system>
   </component>
@@ -57,15 +55,12 @@
   </component>
   <component name="Git.Settings">
     <branch-grouping />
-    <option name="PREVIEW_PUSH_PROTECTED_ONLY" value="true" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="4b7720950f51dbed574eb289aa6b0d3bb382daf9" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="RESET_MODE" value="HARD" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -75,16 +70,12 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/PD2-Final-Project/WhatToEat.git&quot;,
-    &quot;accountId&quot;: &quot;6e08e12f-2111-4ab2-af9c-2a0fa0daf1d2&quot;
+    &quot;url&quot;: &quot;git@github.com:PD2-Final-Project/WhatToEat.git&quot;,
+    &quot;accountId&quot;: &quot;1666b8bd-1136-48d5-b8b3-e9bc4aa4b4f4&quot;
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.json/json/20240303/1245e385b5212a5a1403458d23aebcf8b0a11463/json-20240303-sources.jar!/org/json/JSONArray.java" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/src/main/java/com/whattoeat/ui/UI_alpha1.java" root0="SKIP_INSPECTION" />
-  </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.json/json/20240303/1245e385b5212a5a1403458d23aebcf8b0a11463/json-20240303-sources.jar!/org/json/JSONArray.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
@@ -97,16 +88,11 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;Application.FrameController.executor&quot;: &quot;Run&quot;,
     &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.TestApi.executor&quot;: &quot;Run&quot;,
-    &quot;Application.UI.executor&quot;: &quot;Run&quot;,
-    &quot;Application.UI_alpha1.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Build WhatToEat.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.WhatToEat [:Main.main()].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.WhatToEat [:TestApi.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.WhatToEat [assemble].executor&quot;: &quot;Run&quot;,
     &quot;Kotlin script (Beta).build.gradle.kts.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
@@ -121,7 +107,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;File.Encoding&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -152,28 +138,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WhatToEat [assemble]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="assemble" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
     <configuration name="build.gradle.kts" type="KotlinStandaloneScriptRunConfigurationType" temporary="true" nameIsGenerated="true">
       <module name="WhatToEat" />
       <target name="@@@LOCAL@@@" />
@@ -186,16 +150,22 @@
     <list>
       <item itemvalue="Application.Main" />
       <item itemvalue="Application.TestApi" />
-      <item itemvalue="Gradle.WhatToEat [assemble]" />
       <item itemvalue="Kotlin script (Beta).build.gradle.kts" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.WhatToEat [assemble]" />
         <item itemvalue="Application.TestApi" />
         <item itemvalue="Kotlin script (Beta).build.gradle.kts" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -214,6 +184,10 @@
       <workItem from="1715611778415" duration="5500000" />
       <workItem from="1716384196912" duration="4537000" />
       <workItem from="1716393521481" duration="704000" />
+      <workItem from="1718440418340" duration="241000" />
+      <workItem from="1718440675338" duration="284000" />
+      <workItem from="1718440976605" duration="126000" />
+      <workItem from="1718441118385" duration="422000" />
     </task>
     <task id="LOCAL-00001" summary="Initialize">
       <option name="closed" value="true" />
@@ -239,71 +213,7 @@
       <option name="project" value="LOCAL" />
       <updated>1715615478928</updated>
     </task>
-    <task id="LOCAL-00004" summary="Finished the basic structure of weighted functions.">
-      <option name="closed" value="true" />
-      <created>1717776371139</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1717776371139</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Finished the basic structure of weighted functions.">
-      <option name="closed" value="true" />
-      <created>1717822363160</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1717822363160</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Finished the basic structure of weighted functions.">
-      <option name="closed" value="true" />
-      <created>1717829512767</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1717829512767</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Finished the basic structure of weighted functions.">
-      <option name="closed" value="true" />
-      <created>1717830017053</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1717830017053</updated>
-    </task>
-    <task id="LOCAL-00008" summary="delete BaseFrame.java and UI.java">
-      <option name="closed" value="true" />
-      <created>1718075195589</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1718075195589</updated>
-    </task>
-    <task id="LOCAL-00009" summary="change frame 1,and delete frame2 &quot;meters&quot;">
-      <option name="closed" value="true" />
-      <created>1718105402305</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1718105402305</updated>
-    </task>
-    <task id="LOCAL-00010" summary="I made a HyperlinkLabel.java, which extends JLabel,especially override setText method, to make hyperlink">
-      <option name="closed" value="true" />
-      <created>1718132780780</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1718132780780</updated>
-    </task>
-    <task id="LOCAL-00011" summary="hyperlink display 點擊這裏">
-      <option name="closed" value="true" />
-      <created>1718437216097</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1718437216097</updated>
-    </task>
-    <option name="localTasksCounter" value="12" />
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -320,7 +230,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="features/ui" />
+                        <option value="master" />
                       </list>
                     </value>
                   </entry>
@@ -336,18 +246,14 @@
     <MESSAGE value="Initialize" />
     <MESSAGE value="Finish the basic functions of DataProcessor.java." />
     <MESSAGE value="Finished the basic structure of weighted functions." />
-    <MESSAGE value="delete BaseFrame.java and UI.java" />
-    <MESSAGE value="change frame 1,and delete frame2 &quot;meters&quot;" />
-    <MESSAGE value="I made a HyperlinkLabel.java, which extends JLabel,especially override setText method, to make hyperlink" />
-    <MESSAGE value="hyperlink display 點擊這裏" />
-    <option name="LAST_COMMIT_MESSAGE" value="hyperlink display 點擊這裏" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished the basic structure of weighted functions." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <breakpoint enabled="true" type="java-exception">
-          <properties class="java.lang.ClassCastException" package="java.lang" />
-          <option name="timeStamp" value="7" />
+          <properties class="java.lang.ExceptionInInitializerError" package="java.lang" />
+          <option name="timeStamp" value="8" />
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>
