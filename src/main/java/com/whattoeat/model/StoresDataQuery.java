@@ -12,6 +12,7 @@ import org.json.JSONTokener;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author Jess
@@ -93,6 +94,7 @@ public class StoresDataQuery {
         private int[] priceLevels;
         private String[] urls;
         //private String[][] reviews;
+        private String[][] photoURLs;
 
         public StoresData(JSONArray storesContent) {
             this.length = storesContent.length();
@@ -103,6 +105,7 @@ public class StoresDataQuery {
             this.addresses = new String[length];
             this.phoneNumbers = new String[length];
             this.urls = new String[length];
+            this.photoURLs = new String[length][];
             //this.reviews = new String[this.length][];
             for(int i = 0; i < length; i++) {
                 JSONObject storeContent = storesContent.getJSONObject(i);
@@ -114,6 +117,11 @@ public class StoresDataQuery {
                 this.ratings[i] = details.getDouble("rating");
                 this.priceLevels[i] = details.getInt("priceLevel");
                 this.urls[i] = details.getString("url");
+                JSONArray photoURLsList = details.getJSONArray("photos");
+                this.photoURLs[i] = new String[photoURLsList.length()];
+                for(int j = 0 ; j < photoURLsList.length(); j++) {
+                    this.photoURLs[i][j] = photoURLsList.getString(j);
+                }
             }
         }
 
@@ -147,6 +155,10 @@ public class StoresDataQuery {
 
         public String[] getUrls() {
             return this.urls;
+        }
+
+        public String[][] getPhotosURLs() {
+            return this.photoURLs;
         }
     }
 }
