@@ -8,9 +8,21 @@ import org.json.JSONTokener;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.net.MalformedURLException;
 
+/**
+ * DataWriter is a class that writes search results to a JSON file.
+ * If the data exists and is valid, it updates the existing result.
+ * If the data doesn't exist, it stores it in the JSON file.
+ */
 public class DataWriter {
+
+    /**
+     * Constructor for DataWriter.
+     *
+     * @param filePath        The path of the file to save.
+     * @param newSearchResult The new search result to be saved.
+     */
     public DataWriter(String filePath, JSONObject newSearchResult) {
         File file = new File(filePath);
         // If the file doesn't exist or the file is not a valid JSON file,
@@ -36,42 +48,50 @@ public class DataWriter {
         // then read the file and check if the jsonObject is already in the file.
         // If it is not in the file, then write the jsonObject to the file.
         else {
-            ArrayList<String> location = new ArrayList<>();
-            ArrayList<String> keyword = new ArrayList<>();
-            ArrayList<String> radius = new ArrayList<>();
+            JSONTokener jsonTokener = null;
             try {
-                JSONTokener jsonTokener = new JSONTokener(file.toURI().toURL().openStream());
+                jsonTokener =  new JSONTokener(file.toURI().toURL().openStream());
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                assert jsonTokener != null;
                 JSONArray searchResults = new JSONArray(jsonTokener);
-                for(int i = 0 ; i < searchResults.length() ; i++){
+                boolean isDuplicate = false;
+                for(int i = 0; i < searchResults.length(); i++) {
                     JSONObject searchResult = searchResults.getJSONObject(i);
-                    location.add(searchResult.getString("location"));
-                    keyword.add(searchResult.getString("keyword"));
-                    radius.add(searchResult.getString("radius"));
-                    if(searchResult.getString("keyword").equals(newSearchResult.getString("keyword")) &&
-                        searchResult.getString("location").equals(newSearchResult.getString("location")) &&
-                        searchResult.getString("radius").equals(newSearchResult.getString("radius"))
+                    String location = searchResult.getString("location");
+                    String keyword = searchResult.getString("keyword");
+                    String radius =  searchResult.getString("radius");
+                    String mood = searchResult.getString("mood");
+                    if(location.equals(newSearchResult.getString("location")) &&
+                            keyword.equals(newSearchResult.getString("keyword")) &&
+                            radius.equals(newSearchResult.getString("radius")) &&
+                            mood.equals(newSearchResult.getString("mood"))
                     ) {
-                        Long timeGap = Long.parseLong(searchResult.getString("searchTime")) - System.currentTimeMillis();
+                        long timeGap = searchResult.getLong("searchTime") - newSearchResult.getLong("searchTime");
                         if(timeGap < (1000*60*60*2)) {
-                            searchResults.put(i, newSearchResult);
                             jsonTokener.close();
                             return;
+                        } else {
+                            isDuplicate = true;
+                            searchResults.put(i, newSearchResult);
+                            break;
                         }
                     }
                 }
-                if(!location.contains(newSearchResult.getString("location")) ||
-                    !keyword.contains(newSearchResult.getString("keyword")) ||
-                    !radius.contains(newSearchResult.getString("radius"))
-                ) {
-                    FileWriter fileWriter = new FileWriter(file);
-                    newSearchResult.append("searchTime", System.currentTimeMillis());
-                    fileWriter.write(searchResults.toString());
-                    fileWriter.close();
+                FileWriter writer = new FileWriter(filePath);
+                if(!isDuplicate){
+                    searchResults.put(newSearchResult);
+                    writer.write(searchResults.toString());
                 }
-                jsonTokener.close();
-            } catch(IOException e) {
+                writer.close();
+            } catch (IOException e) {
                 e.printStackTrace();
             }
+
         }
     }
 }

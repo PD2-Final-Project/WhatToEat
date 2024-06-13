@@ -2,8 +2,8 @@ package com.whattoeat.model;
 
 import com.whattoeat.Env;
 import com.whattoeat.model.api.DataParser;
-import com.whattoeat.model.processor.DataProcessor;
 import com.whattoeat.model.processor.DataWriter;
+import com.whattoeat.model.processor.DataProcessor;
 import com.whattoeat.model.processor.Mood;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -12,7 +12,6 @@ import org.json.JSONTokener;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * @author Jess
@@ -37,7 +36,14 @@ public class StoresDataQuery {
     }
 
     /**
-     *
+     * This method is to get the search result and check whether it exits or not.
+     * If it exists, then return it. If not, then make a new request then return it.
+     * @param location  The location of searching
+     * @param keyword  The keyword needed while searching
+     * @param radius  The radius want to search
+     * @param mood The mood of users
+     * @param photoWidth  The width of the photo response
+     * @param photoHeight  The height of the photo response
      */
     private JSONObject getSearchResult(String location, String keyword, int radius, Mood mood, int photoWidth, int photoHeight) {
         // If the data has been found inside the file, then return it;
@@ -49,11 +55,10 @@ public class StoresDataQuery {
                 JSONArray searchResults = new JSONArray(new JSONTokener(reader));
                 if (!searchResults.isEmpty()) {
                     for (int i = 0; i < searchResults.length(); i++) {
-                        Long timeGap = Long.parseLong(searchResults.getJSONObject(i).getString("searchTime")) - System.currentTimeMillis();
+                        Long timeGap = searchResults.getJSONObject(i).getLong("searchTime") - System.currentTimeMillis();
                         if (searchResults.getJSONObject(i).getString("keyword").equals(keyword) &&
                                 searchResults.getJSONObject(i).getString("location").equals(location) &&
-                                searchResults.getJSONObject(i).getInt("radius") == radius &&
-                                timeGap < (1000*60*60*2) &&
+                                searchResults.getJSONObject(i).getInt("radius") == radius && timeGap < (1000*60*60*2) &&
                                 searchResults.getJSONObject(i).getString("mood").equals(mood.toString())
                         ) {
                             reader.close();
@@ -93,7 +98,6 @@ public class StoresDataQuery {
         private String[] phoneNumbers;
         private int[] priceLevels;
         private String[] urls;
-        //private String[][] reviews;
         private String[][] photoURLs;
 
         public StoresData(JSONArray storesContent) {
