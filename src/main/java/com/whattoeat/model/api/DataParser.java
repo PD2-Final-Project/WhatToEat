@@ -2,6 +2,7 @@ package com.whattoeat.model.api;
 
 import com.google.maps.*;
 import com.google.maps.errors.ApiException;
+import com.google.maps.internal.StringJoin;
 import com.google.maps.model.*;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -9,6 +10,10 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import com.whattoeat.model.api.TimeSplit;
 
 
@@ -35,11 +40,12 @@ import com.whattoeat.model.api.TimeSplit;
  * @author hding4915
  * */
 public class DataParser {
-    private final GeoApiContext context;
+    private GeoApiContext context;
     private final String apiKey;
     private GeocodingResult selfLocationDetails = null;
     private PriceLevel minPreferPrice = null;
     private PriceLevel maxPreferPrice = null;
+    private Map<String, String> customSearch = null;
     private PlaceType placeType = PlaceType.RESTAURANT;
     private String keyword = "";
     private String searchToken = null;
@@ -51,28 +57,40 @@ public class DataParser {
     private final TimeSplit timeSplit;
 
     /**
-     * @param apiKey - Put the google map api key.
-     * @param location - Set the location that you want to search.
+     * <p>
+     * The time span will be set to be 2.0 hours
+     * @param apiKey Put the google map api key.
+     * @param location Set the location that you want to search.
      * */
     public DataParser(String apiKey, String location) {
         this(apiKey, location, 2.0);
     }
 
     /**
-     * @param apiKey - Put the google map api key.
-     * @param location - Set the location that you want to search.
-     * @param timeSpan - Set the time span in hours to determine whether to search again if the given search conditions are the same as before.
+     * @param apiKey Put the google map api key.
+     * @param location Set the location that you want to search.
+     * @param timeSpan Set the time span in hours to determine whether to search again if the given search conditions are the same as before.
      * */
     public DataParser(String apiKey, String location, double timeSpan) {
         this.apiKey = apiKey;
-        context = new GeoApiContext.Builder()
-                .apiKey(this.apiKey)
-                .build();
+        open();
         setSelfLocation(location);
         if (timeSpan <= 0) {
             timeSpan = 2.0;
         }
         this.timeSplit = new TimeSplit(timeSpan);
+    }
+
+    /**
+     * <p>
+     * Initialize the api tool.
+     */
+    public void open() {
+        context = new GeoApiContext.Builder()
+                .apiKey(this.apiKey)
+                .build();
+        clearCustomization();
+        reset();
     }
 
     private void reset() {
@@ -81,7 +99,7 @@ public class DataParser {
     }
 
     /**
-     * @param minPreferPrice - Set the min price for searching.
+     * @param minPreferPrice Set the min price for searching.
      * @see PriceLevel
      * */
     public void setMinPreferPrice(PriceLevel minPreferPrice) {
@@ -90,7 +108,7 @@ public class DataParser {
     }
 
     /**
-     * @param maxPreferPrice - Set the max price for searching.
+     * @param maxPreferPrice Set the max price for searching.
      * @see PriceLevel
      * */
     public void setMaxPreferPrice(PriceLevel maxPreferPrice) {
@@ -130,7 +148,43 @@ public class DataParser {
     }
 
     /**
-     * @param location - Set the location for searching.
+     * <p>
+     * Clear all the custom settings for the searching.
+     */
+    public void clearCustomization() {
+        if (!(customSearch == null)) {
+            customSearch.clear();
+        }
+    }
+
+    /**
+     * <p>
+     * Set the parameter for custom request.
+     * You can invoke it several times because all the custom values will be stored.
+     * @param customMap All the custom arguments.
+     */
+    public void setCustomSearch(Map<String, String> customMap) {
+        for (String key : customMap.keySet()) {
+            setCustomSearch(key, customMap.get(key));
+        }
+    }
+
+    /**
+     * <p>
+     * Set the parameter for custom request.
+     * You can invoke it several times because all the custom values will be stored.
+     * @param param The type for the custom searching.
+     * @param value The value for the custom searching.
+     */
+    public void setCustomSearch(String param, String value) {
+        if (customSearch == null) {
+            customSearch = new HashMap<>();
+        }
+        customSearch.put(param, value);
+    }
+
+    /**
+     * @param location Set the location for searching.
      * */
     public void setSelfLocation(String location) {
         GeocodingResult[] geocodingResults = parseGeocode(location);
@@ -139,6 +193,26 @@ public class DataParser {
             break;
         }
         reset();
+    }
+
+    /**
+     * @param latLng Set the latlng for searching.
+     * @see LatLng
+     */
+    public void setSelfLocation(LatLng latLng) {
+        GeocodingResult[] geocodingResults = parseGeocode(latLng);
+        for (GeocodingResult geocodingResult : geocodingResults) {
+            selfLocationDetails = geocodingResult;
+            break;
+        }
+        reset();
+    }
+
+    /**
+     * @return Get the searching results.
+     */
+    public GeocodingResult getSelfLocationDetails() {
+        return selfLocationDetails;
     }
 
     /**
@@ -171,7 +245,56 @@ public class DataParser {
     public int getStoresDataCount() { return this.storesDataCount; }
 
     /**
-     * @param location - The location you want to request.
+     * @param param The type for custom searching.
+     * @param urlValue The value for the type searching.
+     * @return Type of {@link GeocodingResult}[].
+     *         It contains placeId, formattedAddress, geometry, ......
+     *         It could be null if the given location is invalid.
+     * @see com.google.maps.internal.StringJoin.UrlValue
+     * */
+    public GeocodingResult[] parseGeocode(String param, StringJoin.UrlValue urlValue) {
+        return parseGeocode(param, urlValue.toUrlValue());
+    }
+
+    /**
+     * @param latLng The latlng for the location
+     * @return Type of {@link GeocodingResult}[].
+     *         It contains placeId, formattedAddress, geometry, ......
+     *         It could be null if the given location is invalid.
+     * @see LatLng
+     * */
+    public GeocodingResult[] parseGeocode(LatLng latLng) {
+        return parseGeocode("latlng", latLng.toUrlValue());
+    }
+
+    /**
+     * @param param The type for custom searching.
+     * @param value The value for the type searching.
+     * @return Type of {@link GeocodingResult}[].
+     *         It contains placeId, formattedAddress, geometry, ......
+     *         It could be null if the given location is invalid.
+     * */
+    public GeocodingResult[] parseGeocode(String param, String value) {
+        GeocodingApiRequest geocodingApiRequest = GeocodingApi.newRequest(context);
+        geocodingApiRequest.custom(param, value);
+        geocodingApiRequest.language("zh-TW");
+        GeocodingResult[] geocodingResults = null;
+        try {
+            geocodingResults = geocodingApiRequest.await();
+        } catch (ApiException | IOException | InterruptedException e) {
+            geocodingApiRequest.cancel();
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+        }
+        return geocodingResults;
+    }
+
+
+    /**
+     * @param location The location you want to request.
      * @return Type of {@link GeocodingResult}[].
      *         It contains placeId, formattedAddress, geometry, ......
      *         It could be null if the given location is invalid.
@@ -184,6 +307,8 @@ public class DataParser {
             geocodingResults = geocodingApiRequest.await();
         } catch (ApiException | IOException | InterruptedException e) {
             geocodingApiRequest.cancel();
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
 
@@ -201,6 +326,8 @@ public class DataParser {
             context.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } finally {
+            context = null;
         }
     }
 
@@ -223,7 +350,7 @@ public class DataParser {
      * <p>
      * It will search the places nearby several times
      * by calling {@link DataParser#searchNear()} for the search times you assigned.
-     * @param searchTimes - The times you want to search.
+     * @param searchTimes The times you want to search.
      * */
     public void searchNear(int searchTimes) {
         for (int i = 0; i < searchTimes; i++) {
@@ -254,7 +381,7 @@ public class DataParser {
      * <p>
      * It will search the places nearby from the location you set
      * several times and also parse data and return a {@link JSONObject}. <br>
-     * @param searchTimes - The times you want to search.
+     * @param searchTimes The times you want to search.
      * @return Type of {@link JSONObject} for the searching result.
      * */
     public JSONObject searchNearBy(int searchTimes) {
@@ -276,7 +403,7 @@ public class DataParser {
      * <p>
      * It will search the places nearby from the location you set
      * and also parse data to the {@link JSONObject} you passed in and return it. <br>
-     * @param searchedStores - The searched result you got before.
+     * @param searchedStores The searched result you got before.
      * @return Type of {@link JSONObject} for the searching result.
      * */
     public JSONObject searchNearBy(JSONObject searchedStores) {
@@ -301,6 +428,13 @@ public class DataParser {
             nearbySearchRequest.type(placeType);
             nearbySearchRequest.keyword(keyword);
             nearbySearchRequest.radius(radius);
+            if (!(customSearch == null)) {
+                if (!customSearch.isEmpty()) {
+                    for (String key : customSearch.keySet()) {
+                        nearbySearchRequest.custom(key, customSearch.get(key));
+                    }
+                }
+            }
             nearbySearchRequest.openNow(true);
             if (!(minPreferPrice == null)) {
                 nearbySearchRequest.minPrice(minPreferPrice);
@@ -321,6 +455,9 @@ public class DataParser {
         } catch (ApiException | IOException | InterruptedException e) {
             nearbySearchRequest.cancel();
             e.printStackTrace();
+        } catch (Exception e) {
+            nearbySearchRequest.cancel();
+            e.printStackTrace();
         } finally {
 
         }
@@ -330,7 +467,7 @@ public class DataParser {
     /**
      * <p>
      * It will parse the details of the place by the place id.
-     * @param placeId - The place id of the place.
+     * @param placeId The place id of the place.
      * @return Type of {@link PlaceDetails}.
      * */
     public PlaceDetails getPlaceDetails(String placeId) {
@@ -346,6 +483,9 @@ public class DataParser {
         } catch (IllegalStateException | IOException | InterruptedException | ApiException e) {
             placeDetailsRequest.cancel();
             e.printStackTrace();
+        } catch (Exception e) {
+            placeDetailsRequest.cancel();
+            e.printStackTrace();
         } finally {
 
         }
@@ -355,8 +495,8 @@ public class DataParser {
     /**
      * <p>
      * Count the distance between multiple origin and destination.
-     * @param origin - Multiple origin. It should be the address of the place.
-     * @param destination - Multiple destination. It should be the address of the place.
+     * @param origin Multiple origin. It should be the address of the place.
+     * @param destination Multiple destination. It should be the address of the place.
      * @return Type of {@link DistanceMatrix}.
      * */
     public DistanceMatrix countDistance(String[] origin, String[] destination) {
@@ -367,6 +507,9 @@ public class DataParser {
         try {
             matrix = request.await();
         } catch (ApiException | InterruptedException | IOException e) {
+            request.cancel();
+            e.printStackTrace();
+        } catch (Exception e) {
             request.cancel();
             e.printStackTrace();
         } finally {
