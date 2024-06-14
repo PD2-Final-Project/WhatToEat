@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 
 public class FrameController {
@@ -28,9 +30,11 @@ public class FrameController {
     private static String KeyWord = "restaurant";
     private static int radius = 0;
     private static Mood selectedMood;
+    private final static String fontFilePath = "src/main/resources/fonts/Noto_Sans_TC/NotoSansTC-VariableFont_wght.ttf";
+    private final static float fontSize = 20f;
 
     public static void initialize() {
-
+        setGlobalFont();
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
@@ -155,6 +159,20 @@ public class FrameController {
             System.out.println("選擇的心情: " + selectedMood);
         } else {
             System.out.println("未選擇心情");
+        }
+    }
+
+    private static void setGlobalFont() {
+        try {
+            Font font = Font.createFont(Font.TRUETYPE_FONT, new File(fontFilePath));
+            font = font.deriveFont(fontSize);
+            for (Object key : UIManager.getLookAndFeelDefaults().keySet()) {
+                if (key.toString().endsWith(".font")) {
+                    UIManager.put(key, font);
+                }
+            }
+        } catch (FontFormatException | IOException e) {
+            e.printStackTrace();
         }
     }
 }
