@@ -5,7 +5,9 @@ public enum Places {
     CAFE(1),
     SHOPPING_MALL(2),
     CONVENIENCE_STORE(3),
-    BAR(4);
+    BAR(4),
+    STORE(5),
+    LIQUOR_STORE(6);
 
     private final int value;
     private Places(int value) {

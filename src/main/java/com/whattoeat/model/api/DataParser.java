@@ -95,8 +95,13 @@ public class DataParser {
 
     private void reset() {
         storesDataCount = 0;
+        resetSearch();
+    }
+
+    private void resetSearch() {
         finishSearch = false;
     }
+
 
     /**
      * @param minPreferPrice Set the min price for searching.
@@ -414,7 +419,7 @@ public class DataParser {
         }
         if (finishSearch) {
             if (checkTimeToSearch(searchedStores)) {
-                reset();
+                resetSearch();
             } else {
                 return searchedStores;
             }
@@ -553,48 +558,66 @@ public class DataParser {
             storeContent = new JSONArray();
             searchedStores.put("storeContent", storeContent);
         }
+
+        JSONArray contents = searchedStores.getJSONArray("storeContent");
+
         for (PlacesSearchResult result : results) {
             PlaceDetails details = getPlaceDetails(result.placeId);
 
-            // parse reviews
-            JSONArray storeReviews = new JSONArray();
-            parseStoreReviews(details, storeReviews);
+            if (!checkRepeat(contents, result.name)) {
+                // parse reviews
+                JSONArray storeReviews = new JSONArray();
+                parseStoreReviews(details, storeReviews);
 
-            // parse photos
-            JSONArray storePhotos = new JSONArray();
-            parseStorePhotos(details, storePhotos);
+                // parse photos
+                JSONArray storePhotos = new JSONArray();
+                parseStorePhotos(details, storePhotos);
 
-            // parse open hours
-            JSONObject openPeriod = new JSONObject();
-            parseOpenPeriod(details, openPeriod);
+                // parse open hours
+                JSONObject openPeriod = new JSONObject();
+                parseOpenPeriod(details, openPeriod);
 
-            // parse distance
-            long meter = getDistance(details);
+                // parse distance
+                long meter = getDistance(details);
 
-            // price level
-            int priceLevel = Integer.parseInt(PriceLevel.MODERATE.toString());
-            if (!(details.priceLevel == null || details.priceLevel.toString().equals("Unknown"))) {
-                priceLevel = Integer.parseInt(details.priceLevel.toString());
+                // price level
+                int priceLevel = Integer.parseInt(PriceLevel.MODERATE.toString());
+                if (!(details.priceLevel == null || details.priceLevel.toString().equals("Unknown"))) {
+                    priceLevel = Integer.parseInt(details.priceLevel.toString());
+                }
+
+                // put all properties to json
+                String phoneNumber = details.formattedPhoneNumber == null ? "" : details.formattedPhoneNumber;
+                JSONObject storeDetails = new JSONObject();
+                storeDetails.put("name", result.name);
+                JSONObject advanceDetails = new JSONObject();
+                advanceDetails.put("rating", result.rating);
+                advanceDetails.put("address", details.formattedAddress);
+                advanceDetails.put("distance", meter);
+                advanceDetails.put("phoneNumber", phoneNumber);
+                advanceDetails.put("url", details.url.toString());
+                advanceDetails.put("priceLevel", priceLevel);
+                advanceDetails.put("openTimes", openPeriod);
+                advanceDetails.put("photos", storePhotos);
+                advanceDetails.put("reviews", storeReviews);
+                storeDetails.put("details", advanceDetails);
+                storeContent.put(storeDetails);
+                storesDataCount++;
             }
-
-            // put all properties to json
-            String phoneNumber = details.formattedPhoneNumber == null ? "" : details.formattedPhoneNumber;
-            JSONObject storeDetails = new JSONObject();
-            storeDetails.put("name", result.name);
-            JSONObject advanceDetails = new JSONObject();
-            advanceDetails.put("rating", result.rating);
-            advanceDetails.put("address", details.formattedAddress);
-            advanceDetails.put("distance", meter);
-            advanceDetails.put("phoneNumber", phoneNumber);
-            advanceDetails.put("url", details.url.toString());
-            advanceDetails.put("priceLevel", priceLevel);
-            advanceDetails.put("openTimes", openPeriod);
-            advanceDetails.put("photos", storePhotos);
-            advanceDetails.put("reviews", storeReviews);
-            storeDetails.put("details", advanceDetails);
-            storeContent.put(storeDetails);
-            storesDataCount++;
         }
+    }
+
+    private boolean checkRepeat(JSONArray contents, String name) {
+        if (name == null) {
+            return false;
+        }
+        for (int i = 0; i < contents.length(); i++) {
+            JSONObject content = contents.getJSONObject(i);
+            if (content.getString("name").equals(name)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private long getDistance(@NotNull PlaceDetails details) {

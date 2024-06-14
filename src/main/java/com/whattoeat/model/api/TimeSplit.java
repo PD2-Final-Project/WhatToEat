@@ -57,7 +57,7 @@ public class TimeSplit {
      * <p>
      *     Check whether the time is greater than the time with the value timeSpan you set.
      * </p>
-     * @param time - The time of the format like 2024/1/1 15:30.
+     * @param time The time of the format like 2024/1/1 15:30.
      * @return Type of boolean.
      * @throws InvalidTimeFormatException if the time format is inconsistent.
      * */
