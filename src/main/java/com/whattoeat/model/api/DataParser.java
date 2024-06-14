@@ -292,7 +292,6 @@ public class DataParser {
         return geocodingResults;
     }
 
-
     /**
      * @param location The location you want to request.
      * @return Type of {@link GeocodingResult}[].
