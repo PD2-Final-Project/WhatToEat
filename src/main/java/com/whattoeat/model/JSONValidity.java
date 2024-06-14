@@ -19,7 +19,7 @@ public class JSONValidity {
 
         try (Reader reader = new FileReader(file)) {
             JSONTokener jsonTokener = new JSONTokener(reader);
-            Object obj = jsonTokener.nextValue(); // 尝试解析文件内容
+            Object obj = jsonTokener.nextValue();
 
             return obj instanceof JSONObject || obj instanceof JSONArray;
         } catch (IOException | RuntimeException e) {

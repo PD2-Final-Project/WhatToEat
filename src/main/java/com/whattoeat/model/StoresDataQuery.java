@@ -2,8 +2,8 @@ package com.whattoeat.model;
 
 import com.whattoeat.Env;
 import com.whattoeat.model.api.DataParser;
-import com.whattoeat.model.processor.DataWriter;
 import com.whattoeat.model.processor.DataProcessor;
+import com.whattoeat.model.processor.DataWriter;
 import com.whattoeat.model.processor.Mood;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -78,7 +78,8 @@ public class StoresDataQuery {
         DataProcessor processor = new DataProcessor(dataParser.searchNearBy());
         processor.setMood(mood);
         processor.setPhoto(photoWidth, photoHeight);
-        DataWriter dataWriter = new DataWriter(path, processor.getWeightedSearchResult());
+        DataWriter dataWriter = new DataWriter(path);
+        dataWriter.write(processor.getWeightedSearchResult());
         return processor.getWeightedSearchResult();
     }
 

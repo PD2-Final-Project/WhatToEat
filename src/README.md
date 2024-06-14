@@ -2,9 +2,9 @@
 
 ---
 ### Environment
-Set in `env.json` includes:
-- key: The api key of Google Map
-- environment: `DEV` or `PRODUCT`
+Set in environment variables includes:
+- API_KEY: The api key of Google Map
+- ENV: `DEV` or `PRODUCT`
 
 ### Data
 - distance
@@ -27,9 +27,11 @@ Set in `env.json` includes:
                     - DataWriter.java
                     - MinMaxNormalization.java
                     - Mood.java
-                - DataReader.java
+                - JSONValidity.java
+                - StoresDataQuery
             - Env.java
             - Main.java
     - resources
 ```
 ### How it works
+According to the given location, radius, keyword and mood gives out the most suitable choices for users.
