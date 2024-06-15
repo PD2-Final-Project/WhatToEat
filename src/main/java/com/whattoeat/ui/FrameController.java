@@ -1,5 +1,6 @@
 package com.whattoeat.ui;
 
+import com.whattoeat.Main;
 import com.whattoeat.model.StoresDataQuery;
 import com.whattoeat.model.processor.Mood;
 
@@ -9,6 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 
 public class FrameController {
@@ -30,7 +32,7 @@ public class FrameController {
     private static String KeyWord = "restaurant";
     private static int radius = 0;
     private static Mood selectedMood;
-    private final static String fontFilePath = "src/main/resources/fonts/Noto_Sans_TC/static/NotoSansTc-Bold.ttf";
+    private final static InputStream fontStream = Main.class.getResourceAsStream("/fonts/Noto_Sans_TC/static/NotoSansTC-ExtraBold.ttf");
     private final static float fontSize = 20f;
 
     public static void initialize() {
@@ -164,7 +166,8 @@ public class FrameController {
 
     private static void setGlobalFont() {
         try {
-            Font font = Font.createFont(Font.TRUETYPE_FONT, new File(fontFilePath));
+            assert fontStream != null;
+            Font font = Font.createFont(Font.TRUETYPE_FONT, fontStream);
             font = font.deriveFont(fontSize);
             for (Object key : UIManager.getLookAndFeelDefaults().keySet()) {
                 if (key.toString().endsWith(".font")) {
