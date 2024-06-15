@@ -35,6 +35,6 @@ public class HyperlinkLabel extends JLabel {
     }
 
     private void updateText() {
-        super.setText("<html><a href='' style='color: blue;'>" + url + "</a></html>");  // 更新 HTML 内容以显示超链接
+        super.setText("<html><a href='' style='color: blue;'>" + "點擊這裡" + "</a></html>");  // 更新 HTML 内容以显示超链接
     }
 }

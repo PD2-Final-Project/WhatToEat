@@ -90,7 +90,7 @@ public class Frame2 extends JPanel {
         JPanel labelPanel = createPanel(0, 0, 200, 50, new Color(173, 216, 230));
         labelPanel.add(createLabel(labelText, Color.BLACK));
         JPanel dataPanel = createPanel(0, 0, 300, 50, new Color(173, 216, 230));
-        dataLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        dataLabel.setHorizontalAlignment(SwingConstants.LEFT);
         dataPanel.add(dataLabel);
         parentPanel.add(labelPanel);
         parentPanel.add(dataPanel);
