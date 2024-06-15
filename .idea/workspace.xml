@@ -4,27 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8410b76b-ebd5-4933-b774-8ef6d339aad3" name="Changes" comment="Finished the basic structure of weighted functions.">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/log4j2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_10_11_24__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_10_11_24__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_10_11_24__Changes_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_10_11_24__Changes_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_13_10_34__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_13_10_34__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_15_9_30__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_15_9_30__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_6__06_45__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_6_下午_06_45_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_8_12_38__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_8_12_38__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_8_12_38__Changes_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_8_12_52__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_8_3_09__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_8_下午12_38_[Changes]1/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_8_下午12_52_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_8_下午3_09_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/whattoeat/Env.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/whattoeat/Env.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/whattoeat/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/whattoeat/Main.java" afterDir="false" />
+    <list default="true" id="8410b76b-ebd5-4933-b774-8ef6d339aad3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/whattoeat/model/JSONValidity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/whattoeat/model/JSONValidity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/whattoeat/model/StoresDataQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/whattoeat/model/StoresDataQuery.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/whattoeat/model/processor/DataWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/whattoeat/model/processor/DataWriter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/whattoeat/ui/FrameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/whattoeat/ui/FrameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/whattoeat/ui/HyperlinkLabel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/whattoeat/ui/HyperlinkLabel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -187,7 +172,7 @@
       <workItem from="1718440418340" duration="241000" />
       <workItem from="1718440675338" duration="284000" />
       <workItem from="1718440976605" duration="126000" />
-      <workItem from="1718441118385" duration="422000" />
+      <workItem from="1718441118385" duration="937000" />
     </task>
     <task id="LOCAL-00001" summary="Initialize">
       <option name="closed" value="true" />
@@ -213,7 +198,31 @@
       <option name="project" value="LOCAL" />
       <updated>1715615478928</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Add log4j">
+      <option name="closed" value="true" />
+      <created>1718441680108</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1718441680108</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Add log4j.xml">
+      <option name="closed" value="true" />
+      <created>1718441703977</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1718441703977</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Fix the problems of over writing the existing file.&#10;&#10;(cherry picked from commit 50f38910d0252db6fcccd9d12925edd6a990cf28)">
+      <option name="closed" value="true" />
+      <created>1718441727393</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1718441727393</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -246,7 +255,10 @@
     <MESSAGE value="Initialize" />
     <MESSAGE value="Finish the basic functions of DataProcessor.java." />
     <MESSAGE value="Finished the basic structure of weighted functions." />
-    <option name="LAST_COMMIT_MESSAGE" value="Finished the basic structure of weighted functions." />
+    <MESSAGE value="Add log4j" />
+    <MESSAGE value="Add log4j.xml" />
+    <MESSAGE value="Fix the problems of over writing the existing file.&#10;&#10;(cherry picked from commit 50f38910d0252db6fcccd9d12925edd6a990cf28)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix the problems of over writing the existing file.&#10;&#10;(cherry picked from commit 50f38910d0252db6fcccd9d12925edd6a990cf28)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

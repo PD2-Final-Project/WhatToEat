@@ -5,6 +5,8 @@ import com.whattoeat.model.api.DataParser;
 import com.whattoeat.model.processor.DataProcessor;
 import com.whattoeat.model.processor.DataWriter;
 import com.whattoeat.model.processor.Mood;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -23,7 +25,7 @@ public class StoresDataQuery {
     private final JSONObject searchResult;
     public final StoresData storesData;
     private final static String path = Env.getDataStorageFolderPath() + "queryResults.json";
-
+    private final Logger logger = LogManager.getLogger(StoresDataQuery.class);
     /**
      * @param location The location where the search is made.
      * @param keyword The keyword to limit the search results.
@@ -31,6 +33,7 @@ public class StoresDataQuery {
      * @param mood The mood of users
      * */
     public StoresDataQuery(String location, String keyword, int radius, Mood mood, int photoWidth, int photoHeight) {
+        logger.info("StoresDataQuery with {} {} {} {} {} {}", location, keyword, radius, mood, photoWidth, photoHeight);
         this.searchResult = this.getSearchResult(location, keyword, radius, mood, photoWidth, photoHeight);
         this.storesData = new StoresData(this.searchResult.getJSONArray("storeContent"));
     }
@@ -61,6 +64,7 @@ public class StoresDataQuery {
                                 searchResults.getJSONObject(i).getInt("radius") == radius && timeGap < (1000*60*60*2) &&
                                 searchResults.getJSONObject(i).getString("mood").equals(mood.toString())
                         ) {
+                            logger.info("Return searched data");
                             reader.close();
                             return searchResults.getJSONObject(i);
                         }
@@ -69,7 +73,7 @@ public class StoresDataQuery {
                 reader.close();
             }
         } catch(IOException e) {
-            e.printStackTrace();
+            logger.error("IOException while reading search results", e);
         }
         // If the data hasn't been found then create it.
         DataParser dataParser = new DataParser(Env.getApiKey(), location);
@@ -111,7 +115,6 @@ public class StoresDataQuery {
             this.phoneNumbers = new String[length];
             this.urls = new String[length];
             this.photoURLs = new String[length][];
-            //this.reviews = new String[this.length][];
             for(int i = 0; i < length; i++) {
                 JSONObject storeContent = storesContent.getJSONObject(i);
                 this.names[i] = storeContent.getString("name");

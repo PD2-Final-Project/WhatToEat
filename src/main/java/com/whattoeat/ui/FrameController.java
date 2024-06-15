@@ -30,7 +30,7 @@ public class FrameController {
     private static String KeyWord = "restaurant";
     private static int radius = 0;
     private static Mood selectedMood;
-    private final static String fontFilePath = "src/main/resources/fonts/Noto_Sans_TC/NotoSansTC-VariableFont_wght.ttf";
+    private final static String fontFilePath = "src/main/resources/fonts/Noto_Sans_TC/static/NotoSansTc-Bold.ttf";
     private final static float fontSize = 20f;
 
     public static void initialize() {
