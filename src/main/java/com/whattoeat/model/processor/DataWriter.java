@@ -1,6 +1,8 @@
 package com.whattoeat.model.processor;
 
 import com.whattoeat.model.JSONValidity;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -20,6 +22,7 @@ import java.net.MalformedURLException;
  */
 public class DataWriter {
     private final String filePath;
+    private final Logger logger = LogManager.getLogger(DataWriter.class);
     /**
      * Constructor for DataWriter.
      * @param filePath        The path of the file to save.
@@ -37,7 +40,7 @@ public class DataWriter {
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("Error creating file", e);
             }
             try {
                 FileWriter fileWriter = new FileWriter(file);
@@ -46,7 +49,7 @@ public class DataWriter {
                 fileWriter.write(jsonArray.toString());
                 fileWriter.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("Error writing to file", e);
             }
         }
         // If the file exists and is a valid JSON file,
@@ -57,8 +60,9 @@ public class DataWriter {
             try {
                 jsonTokener =  new JSONTokener(file.toURI().toURL().openStream());
             } catch (MalformedURLException e) {
-                e.printStackTrace();
+                logger.error("Malformed URL", e);
             } catch (IOException e) {
+                logger.error("Error writing to file", e);
                 throw new RuntimeException(e);
             }
             try {
@@ -86,7 +90,7 @@ public class DataWriter {
                 }
                 writer.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("Error writing to file", e);
             }
 
         }

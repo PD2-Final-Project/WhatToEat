@@ -1,0 +1,144 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"8410b76b-ebd5-4933-b774-8ef6d339aad3\" name=\"Changes\" comment=\"Finished the basic structure of weighted functions.\" />\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"ExternalProjectsData\">\n    <projectState path=\"$PROJECT_DIR$\">\n      <ProjectState />\n    </projectState>\n  </component>\n  <component name=\"ExternalProjectsManager\">\n    <system id=\"GRADLE\">\n      <state>\n        <task path=\"$PROJECT_DIR$\">\n          <activation />\n        </task>\n        <projects_view>\n          <tree_state>\n            <expand>\n              <path>\n                <item name=\"\" type=\"6a2764b6:ExternalProjectsStructure$RootNode\" />\n                <item name=\"WhatToEat\" type=\"f1a62948:ProjectNode\" />\n              </path>\n              <path>\n                <item name=\"\" type=\"6a2764b6:ExternalProjectsStructure$RootNode\" />\n                <item name=\"WhatToEat\" type=\"f1a62948:ProjectNode\" />\n                <item name=\"Tasks\" type=\"e4a08cd1:TasksNode\" />\n              </path>\n              <path>\n                <item name=\"\" type=\"6a2764b6:ExternalProjectsStructure$RootNode\" />\n                <item name=\"WhatToEat\" type=\"f1a62948:ProjectNode\" />\n                <item name=\"Tasks\" type=\"e4a08cd1:TasksNode\" />\n                <item name=\"build\" type=\"c8890929:TasksNode$1\" />\n              </path>\n            </expand>\n            <select />\n          </tree_state>\n        </projects_view>\n      </state>\n    </system>\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Class\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <branch-grouping />\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\n      <map>\n        <entry key=\"$PROJECT_DIR$\" value=\"master\" />\n      </map>\n    </option>\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"GitHubPullRequestSearchHistory\">{\n  &quot;lastFilter&quot;: {\n    &quot;state&quot;: &quot;OPEN&quot;,\n    &quot;assignee&quot;: &quot;JessYu-1011&quot;\n  }\n}</component>\n  <component name=\"GithubPullRequestsUISettings\">{\n  &quot;selectedUrlAndAccountId&quot;: {\n    &quot;url&quot;: &quot;https://github.com/PD2-Final-Project/WhatToEat.git&quot;,\n    &quot;accountId&quot;: &quot;6e08e12f-2111-4ab2-af9c-2a0fa0daf1d2&quot;\n  }\n}</component>\n  <component name=\"HighlightingSettingsPerFile\">\n    <setting file=\"jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.json/json/20240303/1245e385b5212a5a1403458d23aebcf8b0a11463/json-20240303-sources.jar!/org/json/JSONArray.java\" root0=\"SKIP_INSPECTION\" />\n    <setting file=\"file://$PROJECT_DIR$/src/main/java/com/whattoeat/ui/UI_alpha1.java\" root0=\"SKIP_INSPECTION\" />\n  </component>\n  <component name=\"ProblemsViewState\">\n    <option name=\"selectedTabId\" value=\"CurrentFile\" />\n  </component>\n  <component name=\"ProjectColorInfo\">{\n  &quot;associatedIndex&quot;: 2\n}</component>\n  <component name=\"ProjectId\" id=\"2gBj4SzSroD3ukjhEBKR1VAW3UL\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\"><![CDATA[{\n  \"keyToString\": {\n    \"Application.FrameController.executor\": \"Run\",\n    \"Application.Main.executor\": \"Run\",\n    \"Application.TestApi.executor\": \"Run\",\n    \"Application.UI.executor\": \"Run\",\n    \"Application.UI_alpha1.executor\": \"Run\",\n    \"Gradle.Build WhatToEat.executor\": \"Run\",\n    \"Gradle.Download Sources.executor\": \"Run\",\n    \"Gradle.WhatToEat [:Main.main()].executor\": \"Run\",\n    \"Gradle.WhatToEat [:TestApi.main()].executor\": \"Run\",\n    \"Gradle.WhatToEat [assemble].executor\": \"Run\",\n    \"Kotlin script (Beta).build.gradle.kts.executor\": \"Run\",\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\n    \"git-widget-placeholder\": \"features/ui\",\n    \"ignore.virus.scanning.warn.message\": \"true\",\n    \"kotlin-language-version-configured\": \"true\",\n    \"node.js.detected.package.eslint\": \"true\",\n    \"node.js.detected.package.tslint\": \"true\",\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\n    \"nodejs_package_manager_path\": \"npm\",\n    \"project.structure.last.edited\": \"Modules\",\n    \"project.structure.proportion\": \"0.15\",\n    \"project.structure.side.proportion\": \"0.2\",\n    \"settings.editor.selected.configurable\": \"preferences.pluginManager\",\n    \"vue.rearranger.settings.migration\": \"true\"\n  }\n}]]></component>\n  <component name=\"RecentsManager\">\n    <key name=\"MoveFile.RECENT_KEYS\">\n      <recent name=\"F:\\ncku\\pd2\\WhatToEat\\src\" />\n    </key>\n  </component>\n  <component name=\"RunManager\">\n    <configuration name=\"Main\" type=\"Application\" factoryName=\"Application\" nameIsGenerated=\"true\">\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.whattoeat.Main\" />\n      <module name=\"WhatToEat.main\" />\n      <option name=\"VM_PARAMETERS\" value=\"-Dfile.encoding=UTF-8\" />\n      <extension name=\"coverage\">\n        <pattern>\n          <option name=\"PATTERN\" value=\"com.whattoeat.*\" />\n          <option name=\"ENABLED\" value=\"true\" />\n        </pattern>\n      </extension>\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <configuration name=\"TestApi\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\n      <option name=\"MAIN_CLASS_NAME\" value=\"TestApi\" />\n      <module name=\"WhatToEat.test\" />\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <configuration name=\"WhatToEat [assemble]\" type=\"GradleRunConfiguration\" factoryName=\"Gradle\" temporary=\"true\">\n      <ExternalSystemSettings>\n        <option name=\"executionName\" />\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\n        <option name=\"externalSystemIdString\" value=\"GRADLE\" />\n        <option name=\"scriptParameters\" />\n        <option name=\"taskDescriptions\">\n          <list />\n        </option>\n        <option name=\"taskNames\">\n          <list>\n            <option value=\"assemble\" />\n          </list>\n        </option>\n        <option name=\"vmOptions\" />\n      </ExternalSystemSettings>\n      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>\n      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>\n      <DebugAllEnabled>false</DebugAllEnabled>\n      <RunAsTest>false</RunAsTest>\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"build.gradle.kts\" type=\"KotlinStandaloneScriptRunConfigurationType\" temporary=\"true\" nameIsGenerated=\"true\">\n      <module name=\"WhatToEat\" />\n      <target name=\"@@@LOCAL@@@\" />\n      <shortenClasspath name=\"NONE\" />\n      <option name=\"filePath\" value=\"$PROJECT_DIR$/build.gradle.kts\" />\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <list>\n      <item itemvalue=\"Application.Main\" />\n      <item itemvalue=\"Application.TestApi\" />\n      <item itemvalue=\"Gradle.WhatToEat [assemble]\" />\n      <item itemvalue=\"Kotlin script (Beta).build.gradle.kts\" />\n    </list>\n    <recent_temporary>\n      <list>\n        <item itemvalue=\"Gradle.WhatToEat [assemble]\" />\n        <item itemvalue=\"Application.TestApi\" />\n        <item itemvalue=\"Kotlin script (Beta).build.gradle.kts\" />\n      </list>\n    </recent_temporary>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"8410b76b-ebd5-4933-b774-8ef6d339aad3\" name=\"Changes\" comment=\"\" />\n      <created>1715177674726</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1715177674726</updated>\n      <workItem from=\"1715177675843\" duration=\"6740000\" />\n      <workItem from=\"1715184475923\" duration=\"682000\" />\n      <workItem from=\"1715185164566\" duration=\"656000\" />\n      <workItem from=\"1715185831923\" duration=\"15000\" />\n      <workItem from=\"1715185862374\" duration=\"221000\" />\n      <workItem from=\"1715447096718\" duration=\"30000\" />\n      <workItem from=\"1715611778415\" duration=\"5500000\" />\n      <workItem from=\"1716384196912\" duration=\"4537000\" />\n      <workItem from=\"1716393521481\" duration=\"704000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"Initialize\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1715177773420</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1715177773420</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"Finish the basic functions of DataProcessor.java.\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1715446961098</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1715446961098</updated>\n    </task>\n    <task id=\"LOCAL-00003\" summary=\"Finished the basic structure of weighted functions.\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1715615478928</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1715615478928</updated>\n    </task>\n    <task id=\"LOCAL-00004\" summary=\"Finished the basic structure of weighted functions.\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1717776371139</created>\n      <option name=\"number\" value=\"00004\" />\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1717776371139</updated>\n    </task>\n    <task id=\"LOCAL-00005\" summary=\"Finished the basic structure of weighted functions.\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1717822363160</created>\n      <option name=\"number\" value=\"00005\" />\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1717822363160</updated>\n    </task>\n    <task id=\"LOCAL-00006\" summary=\"Finished the basic structure of weighted functions.\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1717829512767</created>\n      <option name=\"number\" value=\"00006\" />\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1717829512767</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"7\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State>\n              <option name=\"FILTERS\">\n                <map>\n                  <entry key=\"branch\">\n                    <value>\n                      <list>\n                        <option value=\"origin/features/ui\" />\n                      </list>\n                    </value>\n                  </entry>\n                </map>\n              </option>\n            </State>\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"Initialize\" />\n    <MESSAGE value=\"Finish the basic functions of DataProcessor.java.\" />\n    <MESSAGE value=\"Finished the basic structure of weighted functions.\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Finished the basic structure of weighted functions.\" />\n  </component>\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\n    <expand />\n    <select />\n  </component>\n  <component name=\"com.intellij.coverage.CoverageDataManagerImpl\">\n    <SUITE FILE_PATH=\"coverage/WhatToEat$build_gradle_kts.ic\" NAME=\"build.gradle.kts Coverage Results\" MODIFIED=\"1715179090262\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"idea\" COVERAGE_BY_TEST_ENABLED=\"false\" COVERAGE_TRACING_ENABLED=\"true\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -4,7 +4,12 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="8410b76b-ebd5-4933-b774-8ef6d339aad3" name="Changes" comment="Finished the basic structure of weighted functions." />
++    <list default="true" id="8410b76b-ebd5-4933-b774-8ef6d339aad3" name="Changes" comment="">
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/whattoeat/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/whattoeat/Main.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/whattoeat/ui/BaseFrame.java" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/whattoeat/ui/UI.java" beforeDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -75,7 +80,7 @@
+   }
+ }</component>
+   <component name="HighlightingSettingsPerFile">
+-    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.json/json/20240303/1245e385b5212a5a1403458d23aebcf8b0a11463/json-20240303-sources.jar!/org/json/JSONArray.java" root0="SKIP_INSPECTION" />
++    <setting file="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/org.json/json/20240303/1245e385b5212a5a1403458d23aebcf8b0a11463/json-20240303-sources.jar!/org/json/JSONArray.java" root0="SKIP_INSPECTION" />
+     <setting file="file://$PROJECT_DIR$/src/main/java/com/whattoeat/ui/UI_alpha1.java" root0="SKIP_INSPECTION" />
+   </component>
+   <component name="ProblemsViewState">
+@@ -90,42 +95,55 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "Application.FrameController.executor": "Run",
+-    "Application.Main.executor": "Run",
+-    "Application.TestApi.executor": "Run",
+-    "Application.UI.executor": "Run",
+-    "Application.UI_alpha1.executor": "Run",
+-    "Gradle.Build WhatToEat.executor": "Run",
+-    "Gradle.Download Sources.executor": "Run",
+-    "Gradle.WhatToEat [:Main.main()].executor": "Run",
+-    "Gradle.WhatToEat [:TestApi.main()].executor": "Run",
+-    "Gradle.WhatToEat [assemble].executor": "Run",
+-    "Kotlin script (Beta).build.gradle.kts.executor": "Run",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+-    "git-widget-placeholder": "features/ui",
+-    "ignore.virus.scanning.warn.message": "true",
+-    "kotlin-language-version-configured": "true",
+-    "node.js.detected.package.eslint": "true",
+-    "node.js.detected.package.tslint": "true",
+-    "node.js.selected.package.eslint": "(autodetect)",
+-    "node.js.selected.package.tslint": "(autodetect)",
+-    "nodejs_package_manager_path": "npm",
+-    "project.structure.last.edited": "Modules",
+-    "project.structure.proportion": "0.15",
+-    "project.structure.side.proportion": "0.2",
+-    "settings.editor.selected.configurable": "preferences.pluginManager",
+-    "vue.rearranger.settings.migration": "true"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;Application.FrameController.executor&quot;: &quot;Run&quot;,
++    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
++    &quot;Application.TestApi.executor&quot;: &quot;Run&quot;,
++    &quot;Application.UI.executor&quot;: &quot;Run&quot;,
++    &quot;Application.UI_alpha1.executor&quot;: &quot;Run&quot;,
++    &quot;Gradle.Build WhatToEat.executor&quot;: &quot;Run&quot;,
++    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
++    &quot;Gradle.WhatToEat [:Main.main()].executor&quot;: &quot;Run&quot;,
++    &quot;Gradle.WhatToEat [:TestApi.main()].executor&quot;: &quot;Run&quot;,
++    &quot;Gradle.WhatToEat [assemble].executor&quot;: &quot;Run&quot;,
++    &quot;Kotlin script (Beta).build.gradle.kts.executor&quot;: &quot;Run&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;features/ui&quot;,
++    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
++    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
++    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
++    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
++    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
++    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
++    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
++    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
++    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
++    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
++    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
++    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="RecentsManager">
+     <key name="MoveFile.RECENT_KEYS">
+       <recent name="F:\ncku\pd2\WhatToEat\src" />
+     </key>
+   </component>
+-  <component name="RunManager">
++  <component name="RunManager" selected="Application.FrameController">
++    <configuration name="FrameController" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="com.whattoeat.ui.FrameController" />
++      <module name="WhatToEat.main" />
++      <extension name="coverage">
++        <pattern>
++          <option name="PATTERN" value="com.whattoeat.ui.*" />
++          <option name="ENABLED" value="true" />
++        </pattern>
++      </extension>
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
+     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
+       <option name="MAIN_CLASS_NAME" value="com.whattoeat.Main" />
+       <module name="WhatToEat.main" />
+@@ -180,12 +198,14 @@
+     </configuration>
+     <list>
+       <item itemvalue="Application.Main" />
++      <item itemvalue="Application.FrameController" />
+       <item itemvalue="Application.TestApi" />
+       <item itemvalue="Gradle.WhatToEat [assemble]" />
+       <item itemvalue="Kotlin script (Beta).build.gradle.kts" />
+     </list>
+     <recent_temporary>
+       <list>
++        <item itemvalue="Application.FrameController" />
+         <item itemvalue="Gradle.WhatToEat [assemble]" />
+         <item itemvalue="Application.TestApi" />
+         <item itemvalue="Kotlin script (Beta).build.gradle.kts" />
+@@ -291,7 +311,8 @@
+     <MESSAGE value="Initialize" />
+     <MESSAGE value="Finish the basic functions of DataProcessor.java." />
+     <MESSAGE value="Finished the basic structure of weighted functions." />
+-    <option name="LAST_COMMIT_MESSAGE" value="Finished the basic structure of weighted functions." />
++    <MESSAGE value="the baseframe of frame1 and frame2" />
++    <option name="LAST_COMMIT_MESSAGE" value="the baseframe of frame1 and frame2" />
+   </component>
+   <component name="XSLT-Support.FileAssociations.UIState">
+     <expand />
