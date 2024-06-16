@@ -29,11 +29,11 @@ public class Env {
         String userHome = System.getProperty("user.home");
         String path;
         if (osName.contains("win")) {
-            path = System.getenv("LOCALAPPDATA") + "\\WhatToEat";
+            path = System.getenv("LOCALAPPDATA") + "\\WhatToEat\\";
         } else if (osName.contains("mac")) {
-            path = userHome + "/Library/Application Support/WhatToEat";
+            path = userHome + "/Library/Application Support/WhatToEat/";
         } else {
-            path = userHome + "~/.WhatToEat";
+            path = userHome + "~/.WhatToEat/";
         }
         File file = new File(path);
         if (!file.exists()) {

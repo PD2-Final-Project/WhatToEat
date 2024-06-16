@@ -13,7 +13,7 @@ public class Main {
         if (Env.getENV().equals("DEV")) {
             logger.info("Running Development");
             FrameController.initialize();
-        } else if (Env.getENV().equals("PRO")) {
+        } else if (Env.getENV().equals("PRODUCT")) {
             logger.info("Running Production");
             FrameController.initialize();
         }
