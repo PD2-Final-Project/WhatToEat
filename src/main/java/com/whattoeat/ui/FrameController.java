@@ -3,8 +3,6 @@ package com.whattoeat.ui;
 import com.whattoeat.Main;
 import com.whattoeat.model.StoresDataQuery;
 import com.whattoeat.model.processor.Mood;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,15 +34,13 @@ public class FrameController {
     private static Mood selectedMood;
     private final static InputStream fontStream = Main.class.getResourceAsStream("/fonts/Noto_Sans_TC/static/NotoSansTC-ExtraBold.ttf");
     private final static float fontSize = 20f;
-    private static final Logger logger = LogManager.getLogger(FrameController.class);
 
     public static void initialize() {
-        logger.info("FrameController initialize");
         setGlobalFont();
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
-            logger.error("Error setting look and feel {}", e.getMessage());
+            e.printStackTrace();
         }
 
 
@@ -71,20 +67,20 @@ public class FrameController {
         secondPage.prevButton.addActionListener(e -> {
             if (currentIndex > 0) {
                 currentIndex--;
-                logger.info("Previous button clicked. Current index: {}", currentIndex);
+                System.out.println("Previous button clicked. Current index: " + currentIndex);
                 updateStoreData();
             } else {
-                logger.info("Already at the first store. Current index: {}", currentIndex);
+                System.out.println("Already at the first store. Current index: " + currentIndex);
             }
         });
 
         secondPage.nextButton.addActionListener(e -> {
             if (currentIndex < totalStores - 1) {
                 currentIndex++;
-                logger.info("Next button clicked. Current index: {}", currentIndex);
+                System.out.println("Next button clicked. Current index: " + currentIndex);
                 updateStoreData();
             } else {
-                logger.info("Already at the last store. Current index: {}", currentIndex);
+                System.out.println("Already at the last store. Current index: " + currentIndex);
             }
         });
 
@@ -124,14 +120,15 @@ public class FrameController {
             if (photoUrls[currentIndex] != null && photoUrls[currentIndex].length > 0) {
                 secondPage.setImageFromUrl(photoUrls[currentIndex][0]);
             }
-            logger.info("Updating store data for index: {}", currentIndex);
+
+            System.out.println("Updating store data for index: " + currentIndex);
         } else {
-            logger.warn("Invalid index: {}", currentIndex);
+            System.out.println("Invalid index: " + currentIndex);
         }
     }
 
     public static void update(String location, String keyWord, int radius, Mood mood) {
-        logger.info("in update function");
+        System.out.println("in update function");
         StoresDataQuery storesDataQuery = new StoresDataQuery(location, keyWord, radius, mood, 350, 350);
         storeNames = storesDataQuery.storesData.getNames();
         storePrice = storesDataQuery.storesData.getPriceLevels();
@@ -148,22 +145,22 @@ public class FrameController {
 
         try {
             radius = Integer.parseInt(firstPage.radiusField.getText().trim());
-            logger.info("半徑: {}", radius);
+            System.out.println("半徑: " + radius);
         } catch (NumberFormatException e) {
-            logger.warn("輸入的半徑不是有效的整數");
+            System.out.println("輸入的半徑不是有效的整數");
         }
 
         KeyWord = firstPage.keyWordField.getText().trim();
-        logger.info("關鍵詞: {}", KeyWord);
+        System.out.println("關鍵詞: " + KeyWord);
 
         location = firstPage.locationField.getText().trim();
-        logger.info("位置: {}", location);
+        System.out.println("位置: " + location);
 
         selectedMood = (Mood) firstPage.moodDropdown.getSelectedItem();
         if (selectedMood != null) {
-            logger.info("選擇的心情: {}", selectedMood);
+            System.out.println("選擇的心情: " + selectedMood);
         } else {
-            logger.warn("未選擇心情");
+            System.out.println("未選擇心情");
         }
     }
 
