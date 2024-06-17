@@ -129,7 +129,7 @@ public class FrameController {
 
     public static void update(String location, String keyWord, int radius, Mood mood) {
         System.out.println("in update function");
-        StoresDataQuery storesDataQuery = new StoresDataQuery(location, keyWord, radius, mood, 350, 340);
+        StoresDataQuery storesDataQuery = new StoresDataQuery(location, keyWord, radius, mood, 350, 350);
         storeNames = storesDataQuery.storesData.getNames();
         storePrice = storesDataQuery.storesData.getPriceLevels();
         storeDistance = storesDataQuery.storesData.getDistances();

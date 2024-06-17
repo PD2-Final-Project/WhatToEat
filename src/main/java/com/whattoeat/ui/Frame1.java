@@ -15,84 +15,80 @@ public class Frame1 extends JPanel {
     public Frame1() {
         setLayout(null);
         initUI();
+
     }
 
     private void initUI() {
+
         // Title Panel
-        JPanel titlePanel1 = createPanel(350, 50, 300, 50, new Color(70, 130, 180));
+        JPanel titlePanel1 = createPanel(350, 50, 300, 50, new Color(173, 216, 230));
         JLabel titleLabel1 = createLabel("What to eat?", Color.WHITE);
-        titleLabel1.setFont(new Font("Arial", Font.BOLD, 24));
         titlePanel1.add(titleLabel1);
 
-        // All the input
+        //all the input
         JPanel infoPanel = new JPanel();
-        infoPanel.setLayout(new GridLayout(4, 2, 10, 10));
+        infoPanel.setLayout(new GridLayout(4, 2, 10, 10));  // 4 rows, 2 columns, with gaps
         infoPanel.setBounds(250, 150, 500, 300);
-        infoPanel.setBackground(new Color(224, 255, 255));
-        infoPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-
+        infoPanel.setBackground(new Color(173, 216, 230));
         // Adding labels and fields for location, radius, and keyword
-        infoPanel.add(createLabel("所在地點", Color.BLACK, true));
+        infoPanel.add(new JLabel("所在地點"));
         infoPanel.add(locationField);
 
-        infoPanel.add(createLabel("半徑", Color.BLACK, true));
+        infoPanel.add(new JLabel("半徑"));
         infoPanel.add(radiusField);
 
-        infoPanel.add(createLabel("Keyword", Color.BLACK, true));
+        infoPanel.add(new JLabel("keyword"));
         infoPanel.add(keyWordField);
 
         // Adding label and dropdown for mood
-        infoPanel.add(createLabel("心情", Color.BLACK, true));
+        infoPanel.add(new JLabel("心情"));
         moodDropdown.setPreferredSize(new Dimension(250, 30));
         infoPanel.add(moodDropdown);
 
         // Submit Button
         submitButton = new JButton("Click!");
-        submitButton.setBounds(450, 500, 100, 50);
-        submitButton.setBackground(new Color(70, 130, 180));
-        submitButton.setForeground(Color.black);
-        submitButton.setFont(new Font("Arial", Font.BOLD, 16));
+        submitButton.setBounds(450, 450, 100, 50);
 
         // Add components to panel
-        add(infoPanel);
+        add(infoPanel);  // Make sure this is placed correctly within the layout
         add(titlePanel1);
         add(submitButton);
+
     }
 
     private JPanel createPanel(int x, int y, int width, int height, Color bgColor) {
         JPanel panel = new JPanel();
         panel.setBackground(bgColor);
         panel.setBounds(x, y, width, height);
-        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
+        panel.setLayout(new FlowLayout());
         return panel;
     }
 
     private JLabel createLabel(String text, Color fgColor) {
-        return createLabel(text, fgColor, false);
-    }
-
-    private JLabel createLabel(String text, Color fgColor, boolean chinese) {
         JLabel label = new JLabel(text, SwingConstants.CENTER);
         label.setForeground(fgColor);
-        label.setFont(new Font(chinese ? "Microsoft YaHei" : "Arial", Font.PLAIN, 16));
         return label;
     }
 
     public void updateDataFromFrame1() {
         int radius = 0;
         try {
+            // 從文本框中讀取數字，並去除前後空白
             radius = Integer.parseInt(radiusField.getText().trim());
             System.out.println("半徑: " + radius);
         } catch (NumberFormatException e) {
             System.out.println("輸入的半徑不是有效的整數");
         }
 
+        // 從文本框中讀取字符串，並去除前後空白
         String keyWord = keyWordField.getText().trim();
         System.out.println("關鍵詞: " + keyWord);
 
+        // 從文本框中讀取字符串，並去除前後空白
         String location = locationField.getText().trim();
         System.out.println("位置: " + location);
 
+        // 從下拉菜單中獲取選擇的項目，假設它是枚舉類型 Mood 的一個實例
         Mood selectedMood = (Mood) moodDropdown.getSelectedItem();
         if (selectedMood != null) {
             System.out.println("選擇的心情: " + selectedMood);
@@ -100,6 +96,8 @@ public class Frame1 extends JPanel {
             System.out.println("未選擇心情");
         }
 
+
+        // 假設有一個存儲這些數據的地方，例如 FrameController 或其他管理類
         FrameController.update(location, keyWord, radius, selectedMood);
     }
 }
