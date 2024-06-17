@@ -1,6 +1,5 @@
 package com.whattoeat.model.processor;
 
-import com.google.maps.model.PriceLevel;
 import com.whattoeat.Env;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -10,14 +9,14 @@ import java.util.Collections;
 import java.util.Comparator;
 
 /**
- * @author Jess, learningen13@gmail.com
- * To give the recommended stores by sorted the data got from {@link com.whattoeat.model.api.DataParser}.
+ * @author Jess
+ * <p>
+ *     To give the recommended stores by sorted the data got from
+ *     {@link com.whattoeat.model.api.DataParser}.
+ * </p>
  * */
 public class DataProcessor {
     private JSONObject searchResult;
-    private int priceLevel = Integer.valueOf(PriceLevel.MODERATE.toString());
-    private double rating = 3;
-    // The value of weight scales from 0 to 10
     private double priceLevelWeight = 7.50;
     private double distanceWeight = 7.69;
     private double ratingWeight = 6.15;
@@ -53,6 +52,7 @@ public class DataProcessor {
     /**
      * Weight the search results then determine which is higher ranking.
      * @param storeContent is a JSONArray of each searching.
+     * @return {@link JSONArray} the sorted and weighted results
      * */
     private JSONArray weightedSearchResultCalculator(JSONArray storeContent){
         JSONArray weightedStoreContent = new JSONArray();
@@ -89,7 +89,7 @@ public class DataProcessor {
 
     /**
      *  To get the weighted search results.
-     *  @return JSONArray of the weighted search results.
+     *  @return {@link JSONArray} of the weighted search results.
      * */
     public JSONObject getWeightedSearchResult() {
         this.setStandardizedDetailsValues("distance");
@@ -104,6 +104,10 @@ public class DataProcessor {
         return weightedSearchResult;
     }
 
+    /**
+     * To set the mood of the user, and change the weighting depending on the mood.
+     * @param mood The mood defined in {@link com.whattoeat.model.processor.Mood}
+     * */
     public void setMood(Mood mood) {
         this.mood = mood;
         if(mood == Mood.GOOD){
@@ -117,6 +121,11 @@ public class DataProcessor {
         }
     }
 
+    /**
+     * To make the json file contains the url of photos.
+     * @param photoWidth The width of photos
+     * @param photoHeight The height of photos
+     * */
     public void setPhoto(int photoWidth, int photoHeight) {
         JSONArray storeContent = this.searchResult.getJSONArray("storeContent");
         for(int i = 0 ; i < storeContent.length() ; i++) {

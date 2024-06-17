@@ -1,6 +1,8 @@
 package com.whattoeat.model.processor;
 
 import com.whattoeat.model.JSONValidity;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -11,19 +13,25 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 
 /**
- * DataWriter is a class that writes search results to a JSON file.
- * If the data exists and is valid, it updates the existing result.
- * If the data doesn't exist, it stores it in the JSON file.
+ * @author Jess
+ * <p>
+ *     DataWriter is a class that writes search results to a JSON file.
+ *     If the data exists and is valid, it updates the existing result.
+ *     If the data doesn't exist, it stores it in the JSON file.
+ * </p>
  */
 public class DataWriter {
-
+    private final String filePath;
+    private final Logger logger = LogManager.getLogger(DataWriter.class);
     /**
      * Constructor for DataWriter.
-     *
      * @param filePath        The path of the file to save.
-     * @param newSearchResult The new search result to be saved.
      */
-    public DataWriter(String filePath, JSONObject newSearchResult) {
+    public DataWriter(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public void write(JSONObject newSearchResult) {
         File file = new File(filePath);
         // If the file doesn't exist or the file is not a valid JSON file,
         // then create a new file and write the jsonObject to it.
@@ -32,7 +40,7 @@ public class DataWriter {
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("Error creating file", e);
             }
             try {
                 FileWriter fileWriter = new FileWriter(file);
@@ -41,7 +49,7 @@ public class DataWriter {
                 fileWriter.write(jsonArray.toString());
                 fileWriter.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("Error writing to file", e);
             }
         }
         // If the file exists and is a valid JSON file,
@@ -52,8 +60,9 @@ public class DataWriter {
             try {
                 jsonTokener =  new JSONTokener(file.toURI().toURL().openStream());
             } catch (MalformedURLException e) {
-                e.printStackTrace();
+                logger.error("Malformed URL", e);
             } catch (IOException e) {
+                logger.error("Error writing to file", e);
                 throw new RuntimeException(e);
             }
             try {
@@ -62,15 +71,7 @@ public class DataWriter {
                 boolean isDuplicate = false;
                 for(int i = 0; i < searchResults.length(); i++) {
                     JSONObject searchResult = searchResults.getJSONObject(i);
-                    String location = searchResult.getString("location");
-                    String keyword = searchResult.getString("keyword");
-                    String radius =  searchResult.getString("radius");
-                    String mood = searchResult.getString("mood");
-                    if(location.equals(newSearchResult.getString("location")) &&
-                            keyword.equals(newSearchResult.getString("keyword")) &&
-                            radius.equals(newSearchResult.getString("radius")) &&
-                            mood.equals(newSearchResult.getString("mood"))
-                    ) {
+                    if(isExisting(searchResult, newSearchResult)) {
                         long timeGap = searchResult.getLong("searchTime") - newSearchResult.getLong("searchTime");
                         if(timeGap < (1000*60*60*2)) {
                             jsonTokener.close();
@@ -89,9 +90,20 @@ public class DataWriter {
                 }
                 writer.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("Error writing to file", e);
             }
 
         }
+    }
+
+    private boolean isExisting(JSONObject searchResult, JSONObject newSearchResult) {
+        String location = searchResult.getString("location");
+        String keyword = searchResult.getString("keyword");
+        String radius =  searchResult.getString("radius");
+        String mood = searchResult.getString("mood");
+        return location.equals(newSearchResult.getString("location")) &&
+                keyword.equals(newSearchResult.getString("keyword")) &&
+                radius.equals(newSearchResult.getString("radius")) &&
+                mood.equals(newSearchResult.getString("mood"));
     }
 }

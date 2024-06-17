@@ -8,11 +8,11 @@ import java.awt.Desktop;
 import java.net.URI;
 
 public class HyperlinkLabel extends JLabel {
-    private String url;  // 存储实际的 URL
+    private String url;
 
     public HyperlinkLabel(String text) {
         super();
-        this.url = text;  // 存储文本，这里假设文本就是一个有效的 URL
+        this.url = text;
         updateText();
         setCursor(new Cursor(Cursor.HAND_CURSOR));
         setForeground(Color.BLUE);
@@ -20,7 +20,7 @@ public class HyperlinkLabel extends JLabel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    Desktop.getDesktop().browse(new URI(url));  // 使用存储的 URL 打开浏览器
+                    Desktop.getDesktop().browse(new URI(url));
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
@@ -30,11 +30,11 @@ public class HyperlinkLabel extends JLabel {
 
     @Override
     public void setText(String text) {
-        this.url = text;  // 更新 URL
-        updateText();  // 更新显示的文本
+        this.url = text;
+        updateText();
     }
 
     private void updateText() {
-        super.setText("<html><a href='' style='color: blue;'>" + url + "</a></html>");  // 更新 HTML 内容以显示超链接
+        super.setText("<html><a href='' style='color: blue;'>" + "點擊這裡" + "</a></html>");
     }
 }

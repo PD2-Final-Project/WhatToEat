@@ -25,41 +25,42 @@ public class Frame2 extends JPanel {
 
     private void initUI() {
         // Title Panel
-        JPanel titlePanel2 = createPanel(350, 20, 300, 50, new Color(70, 130, 180));
+        JPanel titlePanel2 = createPanel(350, 20, 300, 50, new Color(173, 216, 230));
         JLabel titleLabel2 = createLabel("What to eat?", Color.WHITE);
-        titleLabel2.setFont(new Font("Arial", Font.BOLD, 24));
         titlePanel2.add(titleLabel2);
 
         // Image Panel
-        JPanel imagePanel = createPanel(570, 100, 390, 370, new Color(224, 255, 255));
-        imagePanel.setBorder(BorderFactory.createLineBorder(new Color(70, 130, 180), 2));
+        JPanel imagePanel = createPanel(600, 100, 350, 350, new Color(173, 216, 230));
         imageLabel = new JLabel("Google Map Image", SwingConstants.CENTER);
-        imageLabel.setForeground(Color.BLACK);
-        imageLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+        imageLabel.setForeground(Color.WHITE);
         imagePanel.add(imageLabel);
 
         // Store Information Panel
         JPanel storeInfoPanel = new JPanel();
         storeInfoPanel.setLayout(new GridLayout(5, 2, 10, 10));
         storeInfoPanel.setBounds(50, 100, 500, 300);
-        storeInfoPanel.setBackground(new Color(224, 255, 255));
-        storeInfoPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        storeInfoPanel.setBackground(new Color(173, 216, 230));
 
         // Store Information Labels and Data
-        addStoreInfo(storeInfoPanel, "店名", storeNameData = new JLabel("Store Name Data"), true);
-        addStoreInfo(storeInfoPanel, "價格", priceData = new JLabel("Average Price Data"), true);
-        addStoreInfo(storeInfoPanel, "距離", distanceData = new JLabel("storeDistance"), true);
-        addStoreInfo(storeInfoPanel, "Google評分", ratingData = new JLabel("Rating Data"), true);
-        addStoreInfo(storeInfoPanel, "Google 網址", uriData = new HyperlinkLabel("URI"), true);
+        addStoreInfo(storeInfoPanel, "店名", storeNameData = new JLabel("Store Name Data"));
+        addStoreInfo(storeInfoPanel, "價格", priceData = new JLabel("Average Price Data"));
+        addStoreInfo(storeInfoPanel, "距離", distanceData = new JLabel("storeDistance"));
+        addStoreInfo(storeInfoPanel, "Google評分", ratingData = new JLabel("Rating Data"));
+        addStoreInfo(storeInfoPanel, "Google 網址", uriData = new HyperlinkLabel("URI"));
 
         // Index Label
         indexLabel = createLabel("0/0", Color.BLACK);
-        indexLabel.setBounds(450, 420, 100, 30);
+        indexLabel.setBounds(450, 400, 100, 30);
 
         // Navigation Buttons
-        prevButton = createButton("←", 200, 500);
-        nextButton = createButton("→", 700, 500);
-        backButton = createButton("Back", 450, 500);
+        prevButton = new JButton("←");
+        prevButton.setBounds(200, 450, 100, 50);
+
+        nextButton = new JButton("→");
+        nextButton.setBounds(700, 450, 100, 50);
+
+        backButton = new JButton("Back");
+        backButton.setBounds(450, 450, 100, 50);
 
         // Add components to panel
         add(indexLabel);
@@ -75,39 +76,24 @@ public class Frame2 extends JPanel {
         JPanel panel = new JPanel();
         panel.setBackground(bgColor);
         panel.setBounds(x, y, width, height);
-        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
+        panel.setLayout(new FlowLayout());
         return panel;
     }
 
     private JLabel createLabel(String text, Color fgColor) {
-        return createLabel(text, fgColor, false);
-    }
-
-    private JLabel createLabel(String text, Color fgColor, boolean chinese) {
         JLabel label = new JLabel(text, SwingConstants.CENTER);
         label.setForeground(fgColor);
-        label.setFont(new Font(chinese ? "Microsoft YaHei" : "Arial", Font.PLAIN, 16));
         return label;
     }
 
-    private void addStoreInfo(JPanel parentPanel, String labelText, JLabel dataLabel, boolean chinese) {
-        JPanel labelPanel = createPanel(0, 0, 200, 50, new Color(224, 255, 255));
-        labelPanel.add(createLabel(labelText, Color.BLACK, chinese));
-        JPanel dataPanel = createPanel(0, 0, 300, 50, new Color(224, 255, 255));
-        dataLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        dataLabel.setFont(new Font(chinese ? "Microsoft YaHei" : "Arial", Font.PLAIN, 16));
+    private void addStoreInfo(JPanel parentPanel, String labelText, JLabel dataLabel) {
+        JPanel labelPanel = createPanel(0, 0, 200, 50, new Color(173, 216, 230));
+        labelPanel.add(createLabel(labelText, Color.BLACK));
+        JPanel dataPanel = createPanel(0, 0, 300, 50, new Color(173, 216, 230));
+        dataLabel.setHorizontalAlignment(SwingConstants.LEFT);
         dataPanel.add(dataLabel);
         parentPanel.add(labelPanel);
         parentPanel.add(dataPanel);
-    }
-
-    private JButton createButton(String text, int x, int y) {
-        JButton button = new JButton(text);
-        button.setBounds(x, y, 100, 50);
-        button.setBackground(new Color(70, 130, 180));
-        button.setForeground(Color.BLACK);
-        button.setFont(new Font("Arial", Font.BOLD, 16));
-        return button;
     }
 
     public void setImageFromUrl(String imageUrl) {
