@@ -4,6 +4,8 @@ import com.google.maps.*;
 import com.google.maps.errors.ApiException;
 import com.google.maps.internal.StringJoin;
 import com.google.maps.model.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -53,6 +55,7 @@ public class DataParser {
     private int storesDataCount = 0;
     private boolean finishSearch = false;
     private JSONObject searchResult = null;
+    private final Logger logger = LogManager.getLogger(DataParser.class);
 
     private final TimeSplit timeSplit;
 
@@ -288,9 +291,9 @@ public class DataParser {
             geocodingResults = geocodingApiRequest.await();
         } catch (ApiException | IOException | InterruptedException e) {
             geocodingApiRequest.cancel();
-            e.printStackTrace();
+            logger.error(e.getMessage());
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         } finally {
 
         }
@@ -311,9 +314,9 @@ public class DataParser {
             geocodingResults = geocodingApiRequest.await();
         } catch (ApiException | IOException | InterruptedException e) {
             geocodingApiRequest.cancel();
-            e.printStackTrace();
+            logger.error(e.getMessage());
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         } finally {
 
         }
@@ -458,10 +461,10 @@ public class DataParser {
             parseResults(response.results, searchedStores);
         } catch (ApiException | IOException | InterruptedException e) {
             nearbySearchRequest.cancel();
-            e.printStackTrace();
+            logger.error(e.getMessage());
         } catch (Exception e) {
+            logger.error(e.getMessage());
             nearbySearchRequest.cancel();
-            e.printStackTrace();
         } finally {
 
         }
@@ -486,10 +489,10 @@ public class DataParser {
             details = placeDetailsRequest.await();
         } catch (IllegalStateException | IOException | InterruptedException | ApiException e) {
             placeDetailsRequest.cancel();
-            e.printStackTrace();
+            logger.error(e.getMessage());
         } catch (Exception e) {
+            logger.error(e.getMessage());
             placeDetailsRequest.cancel();
-            e.printStackTrace();
         } finally {
 
         }
@@ -512,10 +515,10 @@ public class DataParser {
             matrix = request.await();
         } catch (ApiException | InterruptedException | IOException e) {
             request.cancel();
-            e.printStackTrace();
+            logger.error(e.getMessage());
         } catch (Exception e) {
+            logger.error(e.getMessage());
             request.cancel();
-            e.printStackTrace();
         } finally {
 
         }

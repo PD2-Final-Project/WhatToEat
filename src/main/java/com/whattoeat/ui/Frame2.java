@@ -1,5 +1,8 @@
 package com.whattoeat.ui;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
@@ -17,8 +20,10 @@ public class Frame2 extends JPanel {
     public JButton nextButton;
     public JButton backButton;
     private JLabel imageLabel;
+    private final Logger logger = LogManager.getLogger(Frame2.class);
 
     public Frame2() {
+        logger.info("Frame2");
         setLayout(null);
         initUI();
     }
@@ -103,7 +108,7 @@ public class Frame2 extends JPanel {
             imageLabel.setIcon(new ImageIcon(image));
             imageLabel.setText("");
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
             imageLabel.setText("Image Load Failed");
         }
     }

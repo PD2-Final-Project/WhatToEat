@@ -1,6 +1,8 @@
 package com.whattoeat.ui;
 
 import com.whattoeat.model.processor.Mood;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,11 +13,12 @@ public class Frame1 extends JPanel {
     public JTextField keyWordField = new JTextField(15);
     public JComboBox<Mood> moodDropdown = new JComboBox<>(Mood.values());
     JButton submitButton = new JButton("Click");
+    private final Logger logger = LogManager.getLogger(Frame1.class);
 
     public Frame1() {
+        logger.info("Frame 1");
         setLayout(null);
         initUI();
-
     }
 
     private void initUI() {
@@ -34,7 +37,7 @@ public class Frame1 extends JPanel {
         infoPanel.add(new JLabel("所在地點"));
         infoPanel.add(locationField);
 
-        infoPanel.add(new JLabel("半徑"));
+        infoPanel.add(new JLabel("半徑(m)"));
         infoPanel.add(radiusField);
 
         infoPanel.add(new JLabel("keyword"));
@@ -75,25 +78,25 @@ public class Frame1 extends JPanel {
         try {
             // 從文本框中讀取數字，並去除前後空白
             radius = Integer.parseInt(radiusField.getText().trim());
-            System.out.println("半徑: " + radius);
+            logger.info("radius is " + radius);
         } catch (NumberFormatException e) {
-            System.out.println("輸入的半徑不是有效的整數");
+            logger.error("輸入的半徑不是有效的整數");
         }
 
         // 從文本框中讀取字符串，並去除前後空白
         String keyWord = keyWordField.getText().trim();
-        System.out.println("關鍵詞: " + keyWord);
+        logger.info("keyWord is {}", keyWord);
 
         // 從文本框中讀取字符串，並去除前後空白
         String location = locationField.getText().trim();
-        System.out.println("位置: " + location);
+        logger.info("location is {}", location);
 
         // 從下拉菜單中獲取選擇的項目，假設它是枚舉類型 Mood 的一個實例
         Mood selectedMood = (Mood) moodDropdown.getSelectedItem();
         if (selectedMood != null) {
-            System.out.println("選擇的心情: " + selectedMood);
+            logger.info("selectedMood is {}", selectedMood);
         } else {
-            System.out.println("未選擇心情");
+            logger.info("selectedMood is null");
         }
 
 
