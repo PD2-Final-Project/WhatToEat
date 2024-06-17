@@ -1,15 +1,15 @@
 # What to Eat 
 
-- Structure
-- 
+## Structure
 - [Environment](#environment)
 - [Data](#data)
+- [Project Structure](#project-structure)
+- [How it works](#how-it-works)
+- [DataParser](#dataparser)
+- [StoreDataQuery](#storedataquery)
 
-<a href="#test">env</a>
 
 ---
-
-<span id="#test"> Test </span>
 
 ### Environment
 Set in environment variables includes:
