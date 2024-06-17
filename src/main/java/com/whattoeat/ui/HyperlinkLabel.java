@@ -1,8 +1,5 @@
 package com.whattoeat.ui;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -12,7 +9,7 @@ import java.net.URI;
 
 public class HyperlinkLabel extends JLabel {
     private String url;
-    private final Logger logger = LogManager.getLogger(HyperlinkLabel.class);
+
     public HyperlinkLabel(String text) {
         super();
         this.url = text;
@@ -25,7 +22,7 @@ public class HyperlinkLabel extends JLabel {
                 try {
                     Desktop.getDesktop().browse(new URI(url));
                 } catch (Exception ex) {
-                    logger.error(ex.getMessage());
+                    ex.printStackTrace();
                 }
             }
         });
