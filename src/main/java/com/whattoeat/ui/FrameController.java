@@ -3,6 +3,8 @@ package com.whattoeat.ui;
 import com.whattoeat.Main;
 import com.whattoeat.model.StoresDataQuery;
 import com.whattoeat.model.processor.Mood;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,13 +36,15 @@ public class FrameController {
     private static Mood selectedMood;
     private final static InputStream fontStream = Main.class.getResourceAsStream("/fonts/Noto_Sans_TC/static/NotoSansTC-ExtraBold.ttf");
     private final static float fontSize = 20f;
+    private final static Logger logger = LogManager.getLogger(FrameController.class);
 
     public static void initialize() {
+        logger.info("FrameController initialize");
         setGlobalFont();
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
 
 
@@ -67,20 +71,20 @@ public class FrameController {
         secondPage.prevButton.addActionListener(e -> {
             if (currentIndex > 0) {
                 currentIndex--;
-                System.out.println("Previous button clicked. Current index: " + currentIndex);
+                logger.info("Previous button clicked. Current index: {}", currentIndex);
                 updateStoreData();
             } else {
-                System.out.println("Already at the first store. Current index: " + currentIndex);
+                logger.info("Already at the first store. Current index: {}", currentIndex);
             }
         });
 
         secondPage.nextButton.addActionListener(e -> {
             if (currentIndex < totalStores - 1) {
                 currentIndex++;
-                System.out.println("Next button clicked. Current index: " + currentIndex);
+                logger.info("Next button clicked. Current index: {}", currentIndex);
                 updateStoreData();
             } else {
-                System.out.println("Already at the last store. Current index: " + currentIndex);
+                logger.info("Already at the last store. Current index: {}", currentIndex);
             }
         });
 
@@ -98,7 +102,7 @@ public class FrameController {
                     try {
                         Desktop.getDesktop().browse(new URI(storeUrls[currentIndex]));
                     } catch (Exception ex) {
-                        ex.printStackTrace();
+                        logger.error(ex.getMessage());
                     }
                 }
             }
@@ -121,14 +125,14 @@ public class FrameController {
                 secondPage.setImageFromUrl(photoUrls[currentIndex][0]);
             }
 
-            System.out.println("Updating store data for index: " + currentIndex);
+            logger.info("Updating store data for index: {}", currentIndex);
         } else {
-            System.out.println("Invalid index: " + currentIndex);
+            logger.warn("Invalid index: {}", currentIndex);
         }
     }
 
     public static void update(String location, String keyWord, int radius, Mood mood) {
-        System.out.println("in update function");
+        logger.info("in update function");
         StoresDataQuery storesDataQuery = new StoresDataQuery(location, keyWord, radius, mood, 350, 350);
         storeNames = storesDataQuery.storesData.getNames();
         storePrice = storesDataQuery.storesData.getPriceLevels();
@@ -145,22 +149,22 @@ public class FrameController {
 
         try {
             radius = Integer.parseInt(firstPage.radiusField.getText().trim());
-            System.out.println("半徑: " + radius);
+            logger.info("半徑: {}", radius);
         } catch (NumberFormatException e) {
-            System.out.println("輸入的半徑不是有效的整數");
+            logger.warn("輸入的半徑不是有效的整數");
         }
 
         KeyWord = firstPage.keyWordField.getText().trim();
-        System.out.println("關鍵詞: " + KeyWord);
+        logger.info("關鍵詞: {}", KeyWord);
 
         location = firstPage.locationField.getText().trim();
-        System.out.println("位置: " + location);
+        logger.info("位置: {}", location);
 
         selectedMood = (Mood) firstPage.moodDropdown.getSelectedItem();
         if (selectedMood != null) {
-            System.out.println("選擇的心情: " + selectedMood);
+            logger.info("選擇的心情: {}", selectedMood);
         } else {
-            System.out.println("未選擇心情");
+            logger.warn("未選擇心情");
         }
     }
 
@@ -175,7 +179,7 @@ public class FrameController {
                 }
             }
         } catch (FontFormatException | IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
     }
 }
