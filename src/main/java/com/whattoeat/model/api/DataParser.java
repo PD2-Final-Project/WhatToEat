@@ -20,7 +20,7 @@ import com.whattoeat.model.api.TimeSplit;
 /**
  * <p>
  * The DataParser is used to parse the data from google map. <br>
- * You should provide the google map api key and the location you want to search neary by. <br>
+ * You should provide the google map api key and the location you want to search near by. <br>
  * You can also assign the time span to determine whether to search again if the given search conditions are the same as before. <br>
  * The default time span is 2.0 hours. <br>
  * Example:
