@@ -91,3 +91,16 @@ The DataParser is used to parse the data from google map.
     ```
 
 ### StoreDataQuery
+It takes 6 parameters to get the query data.
+- Location: The location where query takes part
+- radius: Desired radius for searching
+- keyword: Like "restaurant", "cafe" and so on
+- mood: The mood of the user
+- photoWidth: The max width of response photos
+- photoHeight: The max height of response photos
+*To use the StoreDataQuery*
+Use the getters defined in the inner class StoresData to get the desired data.
+```java=
+StoresDataQuery storesDataQuery = new StoresDataQuery("成功大學", 1000, "餐廳", Mood.NORMAL, 300, 300);
+int[] distance = storesDataQuery.storesData.getDistance();
+```
